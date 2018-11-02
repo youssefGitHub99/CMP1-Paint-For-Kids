@@ -157,7 +157,7 @@ int main()
 	
 	/// 2.4- Rhombus Test ///
 	/// =================== 
-	pOut->PrintMessage("Drawing a Rhombus, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
+	pOut->PrintMessage("Drawing a Rhombus, filled/non-filled and Highlighted filled/non-filled, 1/4th/4* default size, filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 	///TODO: Add code to draw Rhombus in all possible states
@@ -193,13 +193,25 @@ int main()
 	pOut->DrawRh(P1, gfxInfo, true);
 
 
+	// 2.4.5 - Drawing filled rhombus 1/4th the default size
+	pOut->PrintMessage("Drawing a Rhombus ==> filled 1/4th default size, Click one point");
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawRh(P1, gfxInfo, false, .25);
+
+
+	// 2.4.6 - Drawing filled rhombus 4 times default size
+	pOut->PrintMessage("Drawing a Rhombus ==> filled 4 times default size, Click one point");
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawRh(P1, gfxInfo, false, 4);
+
+
 	pOut->PrintMessage("Drawing a Rhombus Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawArea();
 	
 	/// 2.5- Ellipse Test ///
 	/// =================== 
-	pOut->PrintMessage("Drawing an Ellipse, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
+	pOut->PrintMessage("Drawing an Ellipse, filled/non-filled and Highlighted filled/non-filled, 1/4th/4* default size, filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 	///TODO: Add code to draw Ellipse in all possible states
@@ -233,6 +245,18 @@ int main()
 	pOut->PrintMessage("Drawing an Ellipse ==> Highlighted filled, Click to Highlight");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->DrawEl(P1, gfxInfo, true);
+
+
+	// 2.5.5 - Drawing ellipse 1/4th the default size
+	pOut->PrintMessage("Drawing an Ellipse ==> non-filled 1/4th default size, Click one point");
+	pIn->GetPointClicked(P1.x, P1.y); 
+	pOut->DrawEl(P1, gfxInfo, false, .25);
+
+
+	// 2.5.6 - Drawing ellipse 4 times default size
+	pOut->PrintMessage("Drawing an Ellipse ==> non-filled 4 times default size, Click one point");
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawEl(P1, gfxInfo, false, 4);
 
 
 
