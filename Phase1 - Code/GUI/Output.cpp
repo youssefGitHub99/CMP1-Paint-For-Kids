@@ -162,7 +162,93 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	
 }
 
+void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = LiGfxInfo.DrawClr;
 
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	style = FRAME;
+
+
+	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
+
+}
+
+void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const 
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = TriGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (TriGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(TriGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+
+	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
+}
+
+void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected, double factor) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = RhGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (RhGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(RhGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+	//Defining coordinate arrays for the 4 points starting from the uppermost point and going clockwise
+	int iX[4] = { P1.x, P1.x + (int)16 * factor, P1.x, P1.x - (int)16 * factor };
+	int iY[4] = { P1.y + (int)16 * factor, P1.y, P1.y - (int)16 * factor, P1.y };
+	pWind->DrawPolygon(iX, iY, 4, style);
+} 
+
+void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = ElGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (ElGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(ElGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+	int iX1, iX2, iY1, iY2;
+	iX1 = P1.x-(int)32*factor;
+	iY1 = P1.y-(int)16*factor;
+	iX2 = P1.x+(int)32*factor;
+	iY2 = P1.y+(int)16*factor;
+
+	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()
 {
