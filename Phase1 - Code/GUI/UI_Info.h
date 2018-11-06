@@ -17,7 +17,46 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
-	ITM_RECT,		//Recangle item in menu
+	ITM_RECT,
+	ITM_LINE,
+	ITM_TRI,
+	ITM_RHOMBUS,
+	ITM_ELLIPSE,
+	ITM_CIRCLE,
+	ITM_SELECT_FIUGRE,
+	ITM_CHNG_DRAW_CLR,
+	ITM_CHNG_FILL_CLR,
+	ITM_COLOR_RED,
+	ITM_COLOR_BLUE,
+	ITM_COLOR_GREEN,
+	ITM_COLOR_BLACK,
+	ITM_COLOR_WHITE,
+	ITM_COPY,
+	ITM_CUT,
+	ITM_PASTE,
+	//ITM_PICK,
+	//ITM_HIDE,
+	ITM_MUTE,
+	ITM_UNMUTE,
+	ITM_RESIZE_QUARTER,
+	ITM_RESIZE_HALF,
+	ITM_RESIZE_DOUBLE,
+	ITM_RESIZE_FORTIMES,
+	ITM_SEND_BACK,
+	ITM_BRING_FRONT,
+	ITM_DEL,
+	ITM_SAVE,
+	ITM_SAVE_BY_TYPE,
+	ITM_SAVE_CIRCLE,
+	ITM_SAVE_TRI,
+	ITM_SAVE_RHOMBUS,
+	ITM_SAVE_ELLISPE,
+	ITM_SAVE_LINE,
+	ITM_SAVE_RECT,
+	ITM_LOAD,
+	ITM_TO_PLAY,
+	
+	//Recangle item in menu
 	
 	//TODO: Add more items names here
 
@@ -35,6 +74,24 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	//If you want to change the menu items order, change the order here
 	
 	//TODO: Add more items names here
+	ITM_PLAY_FIGURE_TYPE,
+	ITM_PLAY_FIGURE_COLOR,
+	ITM_PLAY_RECT,
+	ITM_PLAY_LINE,
+	ITM_PLAY_TRI,
+	ITM_PLAY_RHOMBUS,
+	ITM_PLAY_ELLIPSE,
+	ITM_PLAY_CIRCLE,
+	ITM_PLAY_COLOR_RED,
+	ITM_PLAY_COLOR_BLUE,
+	ITM_PLAY_COLOR_GREEN,
+	ITM_PLAY_COLOR_BLACK,
+	ITM_PLAY_COLOR_WHITE,
+	ITM_PLAY_MUTE,
+	ITM_PLAY_UNMUTE,
+	ITM_TO_DRAW,
+
+	ITM_PLAY_EXIT,
 
 	PLAY_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
 	

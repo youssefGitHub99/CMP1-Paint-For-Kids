@@ -1,2 +1,10 @@
-﻿  TestCode.cpp
+﻿  Output.cpp
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(332): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(332): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(333): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(333): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(355): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(356): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(357): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\yamani\desktop\cmp1-paint-for-kids\phase1 - code\gui\output.cpp(358): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   PT-Project.vcxproj -> C:\Users\Yamani\Desktop\CMP1-Paint-For-Kids\Phase1 - Code\.\Debug\PT Project.exe
