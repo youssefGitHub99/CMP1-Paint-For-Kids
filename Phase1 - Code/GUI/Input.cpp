@@ -59,36 +59,35 @@ ActionType Input::GetUserAction() const
 			case ITM_TRI: return DRAW_TRI;
 			case ITM_RECT: return DRAW_RECT;
 			case ITM_CIRCLE: return DRAW_CIRCLE;
-			case ITM_COLOR_BLACK: return COLOR_BLACK;
-			case ITM_COLOR_BLUE: return COLOR_BLUE;
-			case ITM_COLOR_GREEN: return COLOR_GREEN;
-			case ITM_COLOR_RED: return COLOR_RED;
-			case ITM_COLOR_WHITE: return COLOR_WHITE;
-			case ITM_RESIZE_HALF: return    RESIZE_HALF;
+			
+			/*case ITM_RESIZE_HALF: return    RESIZE_HALF;
 			case ITM_RESIZE_QUARTER: return   RESIZE_QUARTER;
 			case ITM_RESIZE_DOUBLE: return        RESIZE_DOUBLE;
 			case ITM_RESIZE_FORTIMES: return  RESIZE_FOUR_TIMES;
-			case ITM_SELECT_FIUGRE: return SELECT_FIGURE;
-			case ITM_SAVE:return SAVE;
-			case ITM_SAVE_BY_TYPE:  return SAVE_BY_TYPE;
-			case ITM_COPY:     return COPY;
-			case ITM_CUT:          return CUT;
-			case ITM_UNMUTE:     return UNMUTE;
-			case ITM_MUTE:     return MUTE;
-			case ITM_SAVE_CIRCLE:  return SAVE_CIRCLE;
-			case ITM_SAVE_TRI:   return SAVE_TRI;
-			case ITM_SAVE_RHOMBUS: return SAVE_RHOMBUS;
-			case ITM_SAVE_ELLISPE: return 	SAVE_ELLISPE;
-			case ITM_SAVE_LINE:  return SAVE_LINE;
-			case ITM_SAVE_RECT:    return SAVE_RECT;
-			case ITM_SEND_BACK:    return SEND_BACK;
-			case ITM_BRING_FRONT:  return BRING_FRONT;
-			case ITM_DEL:return DEL;
-			case ITM_PASTE:    return PASTE;
-			case ITM_LOAD:     return LOAD;
-			case ITM_CHNG_DRAW_CLR: return CHNG_DRAW_CLR;
-			case ITM_CHNG_FILL_CLR: return CHNG_FILL_CLR;
-			case ITM_EXIT: return EXIT;
+			*/
+
+			case ITM_SELECT_FIUGRE:	return SELECT_FIGURE;
+			case ITM_SAVE:			return SAVE;
+			case ITM_SAVE_BY_TYPE:	return SAVE_BY_TYPE;
+			case ITM_COPY:			return COPY;
+			case ITM_CUT:			return CUT;
+			case ITM_UNMUTE:		return UNMUTE;
+			case ITM_MUTE:			return MUTE;
+			/*case ITM_SAVE_CIRCLE:	return SAVE_CIRCLE;
+			case ITM_SAVE_TRI:		return SAVE_TRI;
+			case ITM_SAVE_RHOMBUS:	return SAVE_RHOMBUS;
+			case ITM_SAVE_ELLISPE:	return SAVE_ELLISPE;
+			case ITM_SAVE_LINE:		return SAVE_LINE;
+			case ITM_SAVE_RECT:		return SAVE_RECT;*/
+			case ITM_SEND_BACK:		return SEND_BACK;
+			case ITM_BRING_FRONT:	return BRING_FRONT;
+			case ITM_DEL:			return DEL;
+			case ITM_PASTE:			return PASTE;
+			case ITM_LOAD:			return LOAD;
+			case ITM_CHNG_DRAW_CLR:	return CHNG_DRAW_CLR;
+			case ITM_CHNG_FILL_CLR:	return CHNG_FILL_CLR;
+			case ITM_RESIZE:		return RESIZE_SHAPE;
+			case ITM_EXIT:			return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -103,7 +102,7 @@ ActionType Input::GetUserAction() const
 		//[3] User clicks on the status bar
 		return STATUS;
 	}
-	else	//GUI is in PLAY mode
+	else if (UI.InterfaceMode==MODE_PLAY)	//GUI is in PLAY mode
 	{
 		///TODO:
 		//perform checks similar to Draw mode checks above
@@ -153,6 +152,66 @@ ActionType Input::GetUserAction() const
 		return STATUS;
 
 		//return TO_PLAY;	//just for now. This should be updated
+	}
+	else if (UI.InterfaceMode == COLOR) {
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
+
+			switch (ClickedItemOrder)
+			{
+				case ITM_COLOR_BLACK: return COLOR_BLACK;
+				case ITM_COLOR_BLUE: return COLOR_BLUE;
+				case ITM_COLOR_GREEN: return COLOR_GREEN;
+				case ITM_COLOR_RED: return COLOR_RED;
+				case ITM_COLOR_WHITE: return COLOR_WHITE;
+				case ITM_COLOR_BACK: return BACK_TO_DRAW;
+				default: return EMPTY;
+			}
+
+		}
+	}
+	else if (UI.InterfaceMode == RESIZE) {
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
+
+			switch (ClickedItemOrder)
+			{
+				case ITM_RESIZE_HALF:	  return RESIZE_HALF;
+				case ITM_RESIZE_QUARTER:  return RESIZE_QUARTER;
+				case ITM_RESIZE_DOUBLE:   return RESIZE_DOUBLE;
+				case ITM_RESIZE_FORTIMES: return RESIZE_FOUR_TIMES;
+				case ITM_RESIZE_BACK:	  return BACK_TO_DRAW;
+				default: return EMPTY;
+			}
+
+		}
+	}
+	else if (UI.InterfaceMode == SAVE_BY_TYBE_WINDOW) {
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
+
+			switch (ClickedItemOrder)
+			{
+				case ITM_SAVE_CIRCLE:	return SAVE_CIRCLE;
+				case ITM_SAVE_TRI:		return SAVE_TRI;
+				case ITM_SAVE_RHOMBUS:	return SAVE_RHOMBUS;
+				case ITM_SAVE_ELLISPE:	return SAVE_ELLISPE;
+				case ITM_SAVE_LINE:		return SAVE_LINE;
+				case ITM_SAVE_RECT:		return SAVE_RECT;
+				case ITM_SAVE_BACK:		return BACK_TO_DRAW;
+				default: return EMPTY;
+			}
+
+		}
+
+
+
+
+	
+	
 	}
 
 }

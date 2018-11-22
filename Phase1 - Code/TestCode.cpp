@@ -327,12 +327,16 @@ int main()
 
 		case CHNG_DRAW_CLR:
 			pOut->PrintMessage("Action: Change Figure's drawing color , Click anywhere");
+			pOut->CreateColorToolBar();
 			break;
 
 		case CHNG_FILL_CLR:
 			pOut->PrintMessage("Action: Change Figure's Fill color , Click anywhere");
+			pOut->CreateColorToolBar();
 			break;
-
+		case RESIZE_SHAPE:
+			pOut->CreateResizeToolBar();
+			break;
 		case SELECT_FIGURE:
 			pOut->PrintMessage("Actions: Select Figure, Click anywhere");
 			break;
@@ -356,7 +360,9 @@ int main()
 		case FIGURE_PICK_BY_TYPE:
 			pOut->PrintMessage("Actions: Pick By Type, Click anywhere");
 			break;
-
+		case BACK_TO_DRAW:
+			pOut->CreateDrawToolBar();
+			break;
 		case FIGURE_PICK_BY_COLOR:
 			pOut->PrintMessage("Actions: Pick By Color, Click anywhere");
 			break;
@@ -447,6 +453,7 @@ int main()
 
 		case SAVE_BY_TYPE:
 			pOut->PrintMessage("Actions: Save By Type, Click anywhere");
+			pOut->CreateSaveByTypeToolBar();
 			break;
 
 		case LOAD:

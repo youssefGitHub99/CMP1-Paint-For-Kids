@@ -7,10 +7,13 @@
 //This file contains info that is needed by Input and Output classes to
 //handle the user interface
 
-enum GUI_MODE	//Graphical user interface mode
+enum GUI_MODE	//Graphical user interface mode (Toolbars)
 {
 	MODE_DRAW,	//Drawing mode (startup mode)
-	MODE_PLAY	//Playing mode
+	MODE_PLAY,  //Playing mode
+	COLOR,
+	RESIZE,
+	SAVE_BY_TYBE_WINDOW
 };
 
 enum DrawMenuItem //The items of the Draw menu (you should add more items)
@@ -26,11 +29,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_SELECT_FIUGRE,
 	ITM_CHNG_DRAW_CLR,
 	ITM_CHNG_FILL_CLR,
-	ITM_COLOR_RED,
-	ITM_COLOR_BLUE,
-	ITM_COLOR_GREEN,
-	ITM_COLOR_BLACK,
-	ITM_COLOR_WHITE,
+	ITM_RESIZE,
 	ITM_COPY,
 	ITM_CUT,
 	ITM_PASTE,
@@ -38,21 +37,18 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	//ITM_HIDE,
 	ITM_MUTE,
 	ITM_UNMUTE,
-	ITM_RESIZE_QUARTER,
-	ITM_RESIZE_HALF,
-	ITM_RESIZE_DOUBLE,
-	ITM_RESIZE_FORTIMES,
+	
 	ITM_SEND_BACK,
 	ITM_BRING_FRONT,
 	ITM_DEL,
 	ITM_SAVE,
 	ITM_SAVE_BY_TYPE,
-	ITM_SAVE_CIRCLE,
+	/*ITM_SAVE_CIRCLE,
 	ITM_SAVE_TRI,
 	ITM_SAVE_RHOMBUS,
 	ITM_SAVE_ELLISPE,
 	ITM_SAVE_LINE,
-	ITM_SAVE_RECT,
+	ITM_SAVE_RECT,*/
 	ITM_LOAD,
 	ITM_TO_PLAY,
 	
@@ -66,7 +62,36 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	
 };
 
+enum ColorItem {
+	ITM_COLOR_RED,
+	ITM_COLOR_BLUE,
+	ITM_COLOR_GREEN,
+	ITM_COLOR_BLACK,
+	ITM_COLOR_WHITE,
+	ITM_COLOR_BACK,
+	COLOR_ITM_COUNT
+};
 
+enum ResizeItem {
+	ITM_RESIZE_QUARTER,
+	ITM_RESIZE_HALF,
+	ITM_RESIZE_DOUBLE,
+	ITM_RESIZE_FORTIMES,
+	ITM_RESIZE_BACK,
+	RESIZE_ITM_COUNT
+
+};
+
+enum SaveByTypeItem {
+	ITM_SAVE_CIRCLE,
+	ITM_SAVE_TRI,
+	ITM_SAVE_RHOMBUS,
+	ITM_SAVE_ELLISPE,
+	ITM_SAVE_LINE,
+	ITM_SAVE_RECT,
+	ITM_SAVE_BACK,
+	SAVE_BY_TYPE_ITM_COUNT
+};
 
 enum PlayMenuItem //The items of the Play menu (you should add more items)
 {

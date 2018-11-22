@@ -14,6 +14,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	DRAW_CIRCLE,	//Draw Ellipse
 	CHNG_DRAW_CLR,	//Change the drawing color
 	CHNG_FILL_CLR,	//Change the filling color
+	RESIZE_SHAPE,
 	SELECT_FIGURE,
 	COPY,
 	CUT,
@@ -26,6 +27,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	COLOR_GREEN,
 	COLOR_WHITE,
 	COLOR_RED,
+	BACK_TO_DRAW,
 	MUTE,
 	UNMUTE,
 	SAVE_CIRCLE,

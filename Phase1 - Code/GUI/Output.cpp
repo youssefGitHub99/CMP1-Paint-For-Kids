@@ -12,10 +12,9 @@ Output::Output()
 	UI.wx = 5;
 	UI.wy = 5;
 
-
 	UI.StatusBarHeight = 50;
-	UI.ToolBarHeight = 50;
-	UI.MenuItemWidth = /*80*/42;
+	UI.ToolBarHeight = /*50*/36;
+	UI.MenuItemWidth = /*80*/60;
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
@@ -39,6 +38,8 @@ Output::Output()
 	pathExit = "images\\MenuItems\\Menu_Exit.jpg";
 	pathMute = "images\\MenuItems\\Menu_Mute.jpg";
 	pathUnmute = "images\\MenuItems\\Menu_Unmute.jpg";
+	pathBack = "images\\MenuItems\\Menu_Back_To_Draw.jpg";
+	pathResize = "images\\MenuItems\\Menu_Resize.jpg";
 
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
@@ -121,22 +122,23 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_COPY] = "images\\MenuItems\\Menu_Copy.jpg";
 	MenuItemImages[ITM_CUT] = "images\\MenuItems\\Menu_Cut.jpg";
 	MenuItemImages[ITM_UNMUTE] = pathUnmute;
-	MenuItemImages[ITM_SAVE_CIRCLE] = "images\\MenuItems\\Menu_Save_Circle.jpg";
+	/*MenuItemImages[ITM_SAVE_CIRCLE] = "images\\MenuItems\\Menu_Save_Circle.jpg";
 	MenuItemImages[ITM_SAVE_TRI] = "images\\MenuItems\\Menu_Save_Triangle.jpg";
 	MenuItemImages[ITM_SAVE_RHOMBUS] = "images\\MenuItems\\Menu_Save_Rhombus.jpg";
 	MenuItemImages[ITM_SAVE_ELLISPE] = "images\\MenuItems\\Menu_Save_Ellipse.jpg";
 	MenuItemImages[ITM_SAVE_LINE] = "images\\MenuItems\\Menu_Save_Line.jpg";
-	MenuItemImages[ITM_SAVE_RECT] = "images\\MenuItems\\Menu_Save_Rectangle.jpg";
+	MenuItemImages[ITM_SAVE_RECT] = "images\\MenuItems\\Menu_Save_Rectangle.jpg";*/
 	MenuItemImages[ITM_SEND_BACK] = "images\\MenuItems\\Menu_Back.jpg";
 	MenuItemImages[ITM_BRING_FRONT] = "images\\MenuItems\\Menu_Front.jpg";
 	MenuItemImages[ITM_PASTE] = "images\\MenuItems\\Menu_Paste.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\MenuItems\\Menu_Load.jpg";
 	MenuItemImages[ITM_MUTE] = pathMute;
-	MenuItemImages[ITM_COLOR_BLACK] = pathBlack;
+	MenuItemImages[ITM_RESIZE] = pathResize;
+	/*MenuItemImages[ITM_COLOR_BLACK] = pathBlack;
 	MenuItemImages[ITM_COLOR_BLUE] = pathBlue;
 	MenuItemImages[ITM_COLOR_GREEN] = pathGreen;
 	MenuItemImages[ITM_COLOR_RED] = pathRed;
-	MenuItemImages[ITM_COLOR_WHITE] = pathWhite;
+	MenuItemImages[ITM_COLOR_WHITE] = pathWhite;*/
 	MenuItemImages[ITM_LINE] = pathLine;
 	MenuItemImages[ITM_ELLIPSE] = pathEllipse;
 	MenuItemImages[ITM_RHOMBUS] = pathRhombus;
@@ -145,16 +147,13 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_CIRCLE] = pathCircle;
 	MenuItemImages[ITM_TO_PLAY] = "images\\MenuItems\\Menu_Switch_To_Play_Mode.jpg";
 	MenuItemImages[ITM_DEL] = "images\\MenuItems\\Menu_Delete.jpg";
-	MenuItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
+	/*MenuItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
 	MenuItemImages[ITM_RESIZE_QUARTER] = "images\\MenuItems\\Menu_x0.25.jpg";
 	MenuItemImages[ITM_RESIZE_DOUBLE] = "images\\MenuItems\\Menu_x2.jpg";
-	MenuItemImages[ITM_RESIZE_FORTIMES] = "images\\MenuItems\\Menu_x4.jpg";
+	MenuItemImages[ITM_RESIZE_FORTIMES] = "images\\MenuItems\\Menu_x4.jpg";*/
 	MenuItemImages[ITM_CHNG_DRAW_CLR] = "images\\MenuItems\\Menu_Change_Color.jpg";
 	MenuItemImages[ITM_CHNG_FILL_CLR] = "images\\MenuItems\\Menu_Change_FILL_Color.jpg";
 	MenuItemImages[ITM_EXIT] = pathExit;
-
-
-
 	//TODO: Prepare images for each menu item and add it to the list
 
 	//Draw menu item one image at a time
@@ -178,11 +177,7 @@ void Output::CreatePlayToolBar() const
 	///TODO: write code to create Play mode menu
 	string MenuItemImages[PLAY_ITM_COUNT];
 
-	MenuItemImages[ITM_PLAY_COLOR_BLACK] = pathBlack;
-	MenuItemImages[ITM_PLAY_COLOR_BLUE] = pathBlue;
-	MenuItemImages[ITM_PLAY_COLOR_GREEN] = pathGreen;
-	MenuItemImages[ITM_PLAY_COLOR_RED] = pathRed;
-	MenuItemImages[ITM_PLAY_COLOR_WHITE] = pathWhite;
+	
 	MenuItemImages[ITM_PLAY_LINE] = pathLine;
 	MenuItemImages[ITM_PLAY_ELLIPSE] = pathEllipse;
 	MenuItemImages[ITM_PLAY_RHOMBUS] = pathRhombus;
@@ -191,7 +186,11 @@ void Output::CreatePlayToolBar() const
 	MenuItemImages[ITM_PLAY_CIRCLE] = pathCircle;
 	MenuItemImages[ITM_PLAY_MUTE] = pathMute;
 	MenuItemImages[ITM_PLAY_UNMUTE] = pathUnmute;
-
+	MenuItemImages[ITM_PLAY_COLOR_BLACK] = pathBlack;
+	MenuItemImages[ITM_PLAY_COLOR_BLUE] = pathBlue;
+	MenuItemImages[ITM_PLAY_COLOR_GREEN] = pathGreen;
+	MenuItemImages[ITM_PLAY_COLOR_RED] = pathRed;
+	MenuItemImages[ITM_PLAY_COLOR_WHITE] = pathWhite;
 	MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Switch_To_Draw_Mode.jpg";
 	MenuItemImages[ITM_PLAY_FIGURE_TYPE] = "images\\MenuItems\\Menu_Pick_By_Type.jpg";
 	MenuItemImages[ITM_PLAY_FIGURE_COLOR] = "images\\MenuItems\\Menu_Pick_By_Color.jpg";
@@ -209,6 +208,55 @@ void Output::CreatePlayToolBar() const
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+void Output::CreateColorToolBar()const{
+	ClearToolBar();
+	UI.InterfaceMode = COLOR;
+	string ColorItemImages[COLOR_ITM_COUNT];
+	ColorItemImages[ITM_COLOR_BLACK] = pathBlack;
+	ColorItemImages[ITM_COLOR_BLUE] = pathBlue;
+	ColorItemImages[ITM_COLOR_GREEN] = pathGreen;
+	ColorItemImages[ITM_COLOR_RED] = pathRed;
+	ColorItemImages[ITM_COLOR_WHITE] = pathWhite;
+	ColorItemImages[ITM_COLOR_BACK] = pathBack;
+
+	for (int i = 0; i < COLOR_ITM_COUNT; i++)
+		pWind->DrawImage(ColorItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+}
+
+void Output::CreateResizeToolBar()const {
+	ClearToolBar();
+	UI.InterfaceMode = RESIZE;
+	string ResizeItemImages[RESIZE_ITM_COUNT];
+	ResizeItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
+	ResizeItemImages[ITM_RESIZE_QUARTER] = "images\\MenuItems\\Menu_x0.25.jpg";
+	ResizeItemImages[ITM_RESIZE_DOUBLE] = "images\\MenuItems\\Menu_x2.jpg";
+	ResizeItemImages[ITM_RESIZE_FORTIMES] = "images\\MenuItems\\Menu_x4.jpg";
+	ResizeItemImages[ITM_RESIZE_BACK] = pathBack;
+	for (int i = 0; i < RESIZE_ITM_COUNT; i++)
+		pWind->DrawImage(ResizeItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+}
+
+void Output::CreateSaveByTypeToolBar()const {
+	ClearToolBar();
+	UI.InterfaceMode = SAVE_BY_TYBE_WINDOW;
+	string SaveByTypeItemImages[SAVE_BY_TYPE_ITM_COUNT];
+	SaveByTypeItemImages[ITM_SAVE_CIRCLE] = "images\\MenuItems\\Menu_Save_Circle.jpg";
+	SaveByTypeItemImages[ITM_SAVE_TRI] = "images\\MenuItems\\Menu_Save_Triangle.jpg";
+	SaveByTypeItemImages[ITM_SAVE_RHOMBUS] = "images\\MenuItems\\Menu_Save_Rhombus.jpg";
+	SaveByTypeItemImages[ITM_SAVE_ELLISPE] = "images\\MenuItems\\Menu_Save_Ellipse.jpg";
+	SaveByTypeItemImages[ITM_SAVE_LINE] = "images\\MenuItems\\Menu_Save_Line.jpg";
+	SaveByTypeItemImages[ITM_SAVE_RECT] = "images\\MenuItems\\Menu_Save_Rectangle.jpg";
+	SaveByTypeItemImages[ITM_SAVE_BACK] = pathBack;
+	for (int i = 0; i < SAVE_BY_TYPE_ITM_COUNT; i++)
+		pWind->DrawImage(SaveByTypeItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+}
 void Output::ClearDrawArea() const
 {
 	pWind->SetPen(UI.BkGrndColor, 1);

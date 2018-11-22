@@ -20,6 +20,8 @@ private:
 	string pathExit;
 	string pathMute;
 	string pathUnmute;
+	string pathBack;
+	string pathResize;
 	
 public:
 	Output();		
@@ -27,7 +29,10 @@ public:
 	window* CreateWind(int, int, int , int) const; //creates the application window
 	void CreateDrawToolBar() const;	//creates Draw mode toolbar & menu
 	void ClearToolBar() const;
-	void CreatePlayToolBar() const;	//creates Play mode toolbar & menu
+	void CreatePlayToolBar() const;//creates Play mode toolbar & menu
+	void CreateColorToolBar()const;
+	void CreateResizeToolBar()const;
+	void CreateSaveByTypeToolBar()const;
 	void CreateStatusBar() const;	//create the status bar
 
 	Input* CreateInput() const; //creates a pointer to the Input object	
