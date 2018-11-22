@@ -120,7 +120,7 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_PLAY_LINE: return DRAW_LINE;
+			/*case ITM_PLAY_LINE: return DRAW_LINE;
 			case ITM_PLAY_ELLIPSE: return DRAW_ELLIPSE;
 			case ITM_PLAY_RHOMBUS: return DRAW_RHOMBUS;
 			case ITM_PLAY_TRI: return DRAW_TRI;
@@ -130,7 +130,7 @@ ActionType Input::GetUserAction() const
 			case ITM_PLAY_COLOR_BLUE: return COLOR_BLUE;
 			case ITM_PLAY_COLOR_GREEN: return COLOR_GREEN;
 			case ITM_PLAY_COLOR_RED: return COLOR_RED;
-			case ITM_PLAY_COLOR_WHITE: return COLOR_WHITE;
+			case ITM_PLAY_COLOR_WHITE: return COLOR_WHITE;*/
 			case ITM_PLAY_UNMUTE:     return UNMUTE;
 			case ITM_PLAY_MUTE:     return MUTE;
 			case ITM_TO_DRAW: return TO_DRAW;

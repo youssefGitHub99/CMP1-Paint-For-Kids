@@ -101,7 +101,7 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	//TODO: Add more items names here
 	ITM_PLAY_FIGURE_TYPE,
 	ITM_PLAY_FIGURE_COLOR,
-	ITM_PLAY_RECT,
+	/*ITM_PLAY_RECT,
 	ITM_PLAY_LINE,
 	ITM_PLAY_TRI,
 	ITM_PLAY_RHOMBUS,
@@ -111,7 +111,7 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	ITM_PLAY_COLOR_BLUE,
 	ITM_PLAY_COLOR_GREEN,
 	ITM_PLAY_COLOR_BLACK,
-	ITM_PLAY_COLOR_WHITE,
+	ITM_PLAY_COLOR_WHITE,*/
 	ITM_PLAY_MUTE,
 	ITM_PLAY_UNMUTE,
 	ITM_TO_DRAW,

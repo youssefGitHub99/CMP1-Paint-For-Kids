@@ -59,6 +59,11 @@ enum ActionType //The actions supported (you can add more if needed)
 	///TODO: Add more action types (if needed)
 };
 
+enum SoundIcons {
+	SOUND_MUTE, 
+	SOUND_UNMUTE
+};
+
 struct Point	//To be used for figures points
 { int x,y; };
 

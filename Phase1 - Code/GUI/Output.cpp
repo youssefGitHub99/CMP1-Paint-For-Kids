@@ -13,8 +13,8 @@ Output::Output()
 	UI.wy = 5;
 
 	UI.StatusBarHeight = 50;
-	UI.ToolBarHeight = /*50*/36;
-	UI.MenuItemWidth = /*80*/60;
+	UI.ToolBarHeight = /*50*/35;
+	UI.MenuItemWidth = /*80*/70;
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
@@ -176,21 +176,20 @@ void Output::CreatePlayToolBar() const
 	UI.InterfaceMode = MODE_PLAY;
 	///TODO: write code to create Play mode menu
 	string MenuItemImages[PLAY_ITM_COUNT];
-
 	
-	MenuItemImages[ITM_PLAY_LINE] = pathLine;
+	/*MenuItemImages[ITM_PLAY_LINE] = pathLine;
 	MenuItemImages[ITM_PLAY_ELLIPSE] = pathEllipse;
 	MenuItemImages[ITM_PLAY_RHOMBUS] = pathRhombus;
 	MenuItemImages[ITM_PLAY_TRI] = pathTriangle;
 	MenuItemImages[ITM_PLAY_RECT] = pathRectangle;
-	MenuItemImages[ITM_PLAY_CIRCLE] = pathCircle;
+	MenuItemImages[ITM_PLAY_CIRCLE] = pathCircle;*/
 	MenuItemImages[ITM_PLAY_MUTE] = pathMute;
 	MenuItemImages[ITM_PLAY_UNMUTE] = pathUnmute;
-	MenuItemImages[ITM_PLAY_COLOR_BLACK] = pathBlack;
+	/*MenuItemImages[ITM_PLAY_COLOR_BLACK] = pathBlack;
 	MenuItemImages[ITM_PLAY_COLOR_BLUE] = pathBlue;
 	MenuItemImages[ITM_PLAY_COLOR_GREEN] = pathGreen;
 	MenuItemImages[ITM_PLAY_COLOR_RED] = pathRed;
-	MenuItemImages[ITM_PLAY_COLOR_WHITE] = pathWhite;
+	MenuItemImages[ITM_PLAY_COLOR_WHITE] = pathWhite;*/
 	MenuItemImages[ITM_TO_DRAW] = "images\\MenuItems\\Menu_Switch_To_Draw_Mode.jpg";
 	MenuItemImages[ITM_PLAY_FIGURE_TYPE] = "images\\MenuItems\\Menu_Pick_By_Type.jpg";
 	MenuItemImages[ITM_PLAY_FIGURE_COLOR] = "images\\MenuItems\\Menu_Pick_By_Color.jpg";
