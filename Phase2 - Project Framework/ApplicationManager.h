@@ -5,6 +5,7 @@
 #include "Figures\CFigure.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
+#include "SaveLoadUtility.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -39,6 +40,7 @@ public:
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window	
+
 };
 
 #endif
