@@ -1,6 +1,5 @@
 #include "ApplicationManager.h"
 
-
 int main()
 {
 
@@ -8,8 +7,7 @@ int main()
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
 
-	do
-	{		
+	do {		
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
@@ -19,9 +17,7 @@ int main()
 		//Update the interface
 		AppManager.UpdateInterface();	
 
-	}while(ActType != EXIT);
-	
-
+	} while (ActType != EXIT);
 	
 	return 0;
 }
