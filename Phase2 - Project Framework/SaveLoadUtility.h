@@ -33,5 +33,5 @@ class SaveLoadUtility
 public:
 	
 	static std::string fileDialog(FileDialogType type);
-	
+
 };

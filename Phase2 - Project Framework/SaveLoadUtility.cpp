@@ -23,3 +23,4 @@ string SaveLoadUtility::fileDialog(FileDialogType type) {
 	}
 	return buffer;
 }
+

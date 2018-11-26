@@ -37,11 +37,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 	case LOAD:
-		cout << SaveLoadUtility::fileDialog(DIALOG_OPEN);
+		pAct = new LoadAction(this);
 		break;
 
 	case SAVE:
-		cout << SaveLoadUtility::fileDialog(DIALOG_SAVE);
+		pAct = new SaveAction(this);
 		break;
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
@@ -64,8 +64,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//Execute the created action
 	if (pAct != NULL)
 	{
-		pAct->Execute();//Execute
-		delete pAct;	//Action is not needed any more ==> delete it
+		pAct->Execute(); //Execute
+		delete pAct;	 //Action is not needed any more ==> delete it
 		pAct = NULL;
 	}
 }

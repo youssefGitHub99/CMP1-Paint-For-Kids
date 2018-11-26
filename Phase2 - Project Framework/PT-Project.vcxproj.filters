@@ -154,6 +154,12 @@
     <ClCompile Include="SaveLoadUtility.cpp">
       <Filter>Action Classes\Save Load Classes</Filter>
     </ClCompile>
+    <ClCompile Include="SaveAction.cpp">
+      <Filter>Action Classes\Save Load Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadAction.cpp">
+      <Filter>Action Classes\Save Load Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -242,6 +248,12 @@
     </ClInclude>
     <ClInclude Include="DEFS.h" />
     <ClInclude Include="SaveLoadUtility.h">
+      <Filter>Action Classes\Save Load Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveAction.h">
+      <Filter>Action Classes\Save Load Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadAction.h">
       <Filter>Action Classes\Save Load Classes</Filter>
     </ClInclude>
   </ItemGroup>
