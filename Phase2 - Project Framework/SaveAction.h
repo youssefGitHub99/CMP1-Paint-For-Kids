@@ -5,13 +5,13 @@
 #include <fstream>
 
 enum SaveType {
-	SAVE_ALL, 
-	SAVE_REC,
-	SAVE_LINE, 
-	SAVE_TRI, 
-	SAVE_RHOMBUS, 
-	SAVE_ELLIPSE, 
-	SAVE_CIRCLE
+	SAVE_TYPE_ALL, 
+	SAVE_TYPE_REC,
+	SAVE_TYPE_LINE, 
+	SAVE_TYPE_TRI, 
+	SAVE_TYPE_RHOMBUS, 
+	SAVE_TYPE_ELLIPSE, 
+	SAVE_TYPE_CIRCLE
 };
 
 class SaveAction : public Action

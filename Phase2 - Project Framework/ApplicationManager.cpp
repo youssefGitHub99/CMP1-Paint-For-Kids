@@ -41,7 +41,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case SAVE:
-		pAct = new SaveAction(this);
+		pAct = new SaveAction(this, SAVE_TYPE_ALL);
 		break;
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
