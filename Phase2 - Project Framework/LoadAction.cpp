@@ -22,6 +22,7 @@ void LoadAction::ReadActionParameters() {
 		///Print To status bar that it couldn't open the file.
 	} else {
 		// The next alogrithm reads the file line by line.
+		/// Check the extension first.
 		string line;
 		while (getline(*pInputFileStream, line))
 		{
