@@ -25,7 +25,6 @@ private:
 	Output *pOut;
 
 public:	
-	
 	ApplicationManager(); 
 	~ApplicationManager();
 	
@@ -37,18 +36,11 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
-	CFigure * GetSelectedFigure() const;
-	void removeSelection();
-	void deleteSelectedFigure();
-
-
+		
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window	
-
-
-	
 
 };
 

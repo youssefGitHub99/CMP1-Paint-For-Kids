@@ -45,7 +45,7 @@ public:
 	void DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected=false) const;  //Draw a triangle
 	void DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected=false, double factor=1) const;  //Draw a rhombus
 	void DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected=false, double factor=1) const;  //Draw an ellipse
-	void DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected = false, double factor = 1) const;
+
 	///Make similar functions for drawing all other figure types.
 	
 	void PrintMessage(string msg) const;	//Print a message on Status bar
