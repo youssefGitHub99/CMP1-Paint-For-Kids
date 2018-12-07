@@ -406,6 +406,32 @@ void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) c
 
 	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
 }
+
+void Output::DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = ElGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 1);
+	drawstyle style;
+	if (ElGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(ElGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+	int iX1, iX2, iY1, iY2;
+	iX1 = P1.x - (int)16 * factor;
+	iY1 = P1.y - (int)16 * factor;
+	iX2 = P1.x + (int)16 * factor;
+	iY2 = P1.y + (int)16 * factor;
+
+	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()
 {
