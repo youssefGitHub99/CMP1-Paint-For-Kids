@@ -16,12 +16,6 @@ enum GUI_MODE	//Graphical user interface mode (Toolbars)
 	SAVE_BY_TYBE_WINDOW
 };
 
-enum COLOR_MODE {
-	FILL_COLOR,
-	DRAWING_COLOR
-};
-
-
 enum DrawMenuItem //The items of the Draw menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
@@ -137,7 +131,7 @@ __declspec(selectany) //This line to prevent "redefinition error"
 struct UI_Info	//User Interface Info.
 {
 	GUI_MODE InterfaceMode;
-	COLOR_MODE ColorInterface;
+	
 	int	width, height,	    //Window width and height
 		wx , wy,			//Window starting coordinates
 		StatusBarHeight,	//Status Bar Height
