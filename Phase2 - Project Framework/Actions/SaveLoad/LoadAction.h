@@ -1,7 +1,7 @@
 #pragma once
-#include "Actions/Action.h"
-#include "ApplicationManager.h"
+#include "../Action.h"
 #include "SaveLoadUtility.h"
+#include "../../ApplicationManager.h"
 #include <fstream>
 
 class LoadAction : public Action

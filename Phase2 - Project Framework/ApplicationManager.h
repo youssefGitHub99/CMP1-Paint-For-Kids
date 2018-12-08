@@ -5,8 +5,8 @@
 #include "Figures\CFigure.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
-#include "SaveAction.h"
-#include "LoadAction.h"
+#include "Actions/SaveLoad/SaveAction.h"
+#include "Actions/SaveLoad/LoadAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -35,9 +35,11 @@ public:
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions
-	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
-	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
-	CFigure * GetSelectedFigure() const;
+	void AddFigure(CFigure* pFig);        //Adds a new figure to the FigList
+	int getFigCount() const; 
+	CFigure* GetFigure(int index) const;
+	CFigure* GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
+	CFigure* GetSelectedFigure() const;
 	void removeSelection();
 	void deleteSelectedFigure();
 

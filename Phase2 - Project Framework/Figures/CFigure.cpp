@@ -23,3 +23,6 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr; 
 }
 
+GfxInfo CFigure::getGfxInfo() const {
+	return FigGfxInfo;
+}

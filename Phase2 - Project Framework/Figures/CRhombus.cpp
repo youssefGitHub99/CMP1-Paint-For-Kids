@@ -1,7 +1,5 @@
 #include "CRhombus.h"
 
-
-
 CRhombus::CRhombus(Point center,GfxInfo figGFXInfo):CFigure(figGFXInfo)
 {
 	this->center = center;

@@ -16,6 +16,7 @@
 #include "Figures/CCircle.h"
 #include "Figures/CRectangle.h"
 #include "Figures/CRhombus.h"
+
 using namespace std;
 
 //Constructor
@@ -65,10 +66,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new AddCircleAction(this);
 		break;
 	case LOAD:
-		//pAct = new LoadAction(this);
+		pAct = new LoadAction(this);
 		break;
 	case SAVE:
-		//pAct = new SaveAction(this, SAVE_TYPE_ALL);
+		pAct = new SaveAction(this, SAVE_TYPE_ALL);
 		break;
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
@@ -138,6 +139,14 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;
 		FigList[FigCount - 1]->setId(FigCount - 1);
 	}
+}
+
+int ApplicationManager::getFigCount() const {
+	return FigCount;
+}
+
+CFigure* ApplicationManager::GetFigure(int index) const {
+	return FigList[index];
 }
 
 void ApplicationManager::removeSelection() {

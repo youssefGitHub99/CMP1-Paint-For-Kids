@@ -1,5 +1,6 @@
 #pragma once
 #include "CFigure.h"
+
 class CLine :public CFigure {
 	
 	Point corner1;
