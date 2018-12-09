@@ -77,7 +77,7 @@ ofstream& operator<<(ofstream& output, CLine& line) {
 		<< p1.y << ' '
 		<< p2.x << ' '
 		<< p2.y << ' '
-		<< c << ' '
+		<< c
 		<< '\n';
 
 	return output;
@@ -98,7 +98,7 @@ ofstream& operator<<(ofstream& output, CRectangle& rect) {
 		<< p2.x << ' '
 		<< p2.y << ' '
 		<< drawColor << ' '
-		<< fillColor << ' '
+		<< fillColor
 		<< '\n';
 
 	return output;
@@ -121,7 +121,7 @@ ofstream& operator<<(ofstream& output, CTriangle& tri) {
 		<< p3.x << ' '
 		<< p3.y << ' '
 		<< drawColor << ' '
-		<< fillColor << ' '
+		<< fillColor
 		<< '\n';
 
 	return output;
@@ -140,7 +140,7 @@ ofstream& operator<<(ofstream& output, CRhombus& rho) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor << ' '
+		<< fillColor
 		<< '\n';
 
 	return output;
@@ -159,7 +159,7 @@ ofstream& operator<<(ofstream& output, CCircle& circ) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor << ' '
+		<< fillColor
 		<< '\n';
 
 	return output;
@@ -178,8 +178,15 @@ ofstream& operator<<(ofstream& output, CEllipse& elli) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor << ' '
+		<< fillColor
 		<< '\n';
 
 	return output;
+}
+
+FileLinesFormat SaveLoadUtility::currentLineFormat(int i) {
+	if (i < 2)
+		return FileLinesFormat(i);
+	else
+		return FileLinesFormat(2);
 }

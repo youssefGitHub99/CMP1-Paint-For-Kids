@@ -19,6 +19,10 @@ class SaveAction : public Action
 	SaveType saveType;
 	ofstream* pOutputFileStream;
 	bool managedToOpen;
+	int numOfFiguresToSave;
+
+	void setNumOfFiguresToSave();
+	bool dontSaveCuzThereIsNoFigures();
 
 public:
 	SaveAction(ApplicationManager * pApp, SaveType saveType);

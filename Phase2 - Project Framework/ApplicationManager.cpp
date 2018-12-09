@@ -47,6 +47,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
 
+
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
@@ -70,6 +71,28 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case SAVE:
 		pAct = new SaveAction(this, SAVE_TYPE_ALL);
+		break;
+	case SAVE_BY_TYPE:
+		pOut->CreateSaveByTypeToolBar();
+		UI.InterfaceMode = SAVE_BY_TYBE_TOOLBAR;
+		break;
+	case SAVE_LINE:
+		pAct = new SaveAction(this, SAVE_TYPE_LINE);
+		break;
+	case SAVE_RECT:
+		pAct = new SaveAction(this, SAVE_TYPE_RECT);
+		break;
+	case SAVE_TRI:
+		pAct = new SaveAction(this, SAVE_TYPE_TRI);
+		break;
+	case SAVE_RHOMBUS:
+		pAct = new SaveAction(this, SAVE_TYPE_RHOMBUS);
+		break;
+	case SAVE_CIRCLE:
+		pAct = new SaveAction(this, SAVE_TYPE_CIRCLE);
+		break;
+	case SAVE_ELLISPE:
+		pAct = new SaveAction(this, SAVE_TYPE_ELLIPSE);
 		break;
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
@@ -143,6 +166,10 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 
 int ApplicationManager::getFigCount() const {
 	return FigCount;
+}
+
+int ApplicationManager::getMaxFigCount() const {
+	return MaxFigCount;
 }
 
 CFigure* ApplicationManager::GetFigure(int index) const {

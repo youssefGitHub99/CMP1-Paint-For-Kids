@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <iomanip>
 #include "../../Figures/CLine.h"
 #include "../../Figures/CRectangle.h"
@@ -38,6 +39,12 @@ enum CheckExtensionProbabilities {
 	TXT
 };
 
+enum FileLinesFormat{
+	DRAWCOLOR_FILLCOLOR, 
+	FIGURES_COUNT, 
+	FIGURES_DESCRIPTION
+};
+
 class SaveLoadUtility
 {
 	SaveLoadUtility(); // Creating an instance of this class makes no sense. (private constructor)
@@ -57,4 +64,5 @@ public:
 	friend ofstream& operator<<(ofstream& ouput, CCircle& circ);
 	friend ofstream& operator<<(ofstream& ouput, CEllipse& elli);
 
+	static FileLinesFormat currentLineFormat(int i);
 };

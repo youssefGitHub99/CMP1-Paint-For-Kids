@@ -188,7 +188,7 @@ ActionType Input::GetUserAction() const
 
 		}
 	}
-	else if (UI.InterfaceMode == SAVE_BY_TYBE_WINDOW) {
+	else if (UI.InterfaceMode == SAVE_BY_TYBE_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);

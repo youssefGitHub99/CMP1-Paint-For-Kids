@@ -241,7 +241,7 @@ void Output::CreateResizeToolBar()const {
 
 void Output::CreateSaveByTypeToolBar()const {
 	ClearToolBar();
-	UI.InterfaceMode = SAVE_BY_TYBE_WINDOW;
+	UI.InterfaceMode = SAVE_BY_TYBE_TOOLBAR;
 	string SaveByTypeItemImages[SAVE_BY_TYPE_ITM_COUNT];
 	SaveByTypeItemImages[ITM_SAVE_CIRCLE] = "images\\MenuItems\\Menu_Save_Circle.jpg";
 	SaveByTypeItemImages[ITM_SAVE_TRI] = "images\\MenuItems\\Menu_Save_Triangle.jpg";

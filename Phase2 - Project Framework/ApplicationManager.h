@@ -36,7 +36,9 @@ public:
 	
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);        //Adds a new figure to the FigList
-	int getFigCount() const; 
+	int getFigCount() const;
+	int getMaxFigCount() const;
+	template<typename T> int getNumOf() const;
 	CFigure* GetFigure(int index) const;
 	CFigure* GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
@@ -54,4 +56,12 @@ public:
 
 };
 
+// It looks like we'll always get a SHITTY LINKER ERROR unless we implement the functions that use templates in the header files.
+template<typename T> int ApplicationManager::getNumOf() const {
+	int count = 0;
+	for (int i = 0; i < FigCount; i++) {
+		if (dynamic_cast<T*>(FigList[i]) != NULL) count++;
+	}
+	return count;
+}
 #endif
