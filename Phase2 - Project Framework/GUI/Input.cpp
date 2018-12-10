@@ -153,7 +153,7 @@ ActionType Input::GetUserAction() const
 
 		//return TO_PLAY;	//just for now. This should be updated
 	}
-	else if (UI.InterfaceMode == COLOR) {
+	else if (UI.InterfaceMode == COLOR_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
@@ -171,7 +171,7 @@ ActionType Input::GetUserAction() const
 
 		}
 	}
-	else if (UI.InterfaceMode == RESIZE) {
+	else if (UI.InterfaceMode == RESIZE_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);

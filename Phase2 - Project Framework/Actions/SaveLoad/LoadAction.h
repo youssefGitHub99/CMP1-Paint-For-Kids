@@ -8,6 +8,11 @@ class LoadAction : public Action
 {
 	
 	ifstream* pInputFileStream;
+	bool managedToOpen;
+
+	FileLinesFormat getLineFormat(int i, WordType figureType);
+	WordType getWordType(int lineCounter, int wordCounter);
+	void getWordRange(int& min, int& max);
 
 public:
 	LoadAction(ApplicationManager * pApp);

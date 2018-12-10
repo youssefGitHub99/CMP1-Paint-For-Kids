@@ -21,8 +21,12 @@ class SaveAction : public Action
 	bool managedToOpen;
 	int numOfFiguresToSave;
 
+	CheckExtensionProbabilities checkExtension(std::string& path);
+
 	void setNumOfFiguresToSave();
 	bool dontSaveCuzThereIsNoFigures();
+
+	static void colorsIntoKeywords(GfxInfo gfxInfo, ReservedKeywords& drawColor, ReservedKeywords& fillColor);
 
 public:
 	SaveAction(ApplicationManager * pApp, SaveType saveType);
@@ -33,5 +37,14 @@ public:
 
 	//Add rectangle to the ApplicationManager
 	virtual void Execute();
+
+
+
+	friend ofstream& operator<<(ofstream& ouput, CLine& line);
+	friend ofstream& operator<<(ofstream& ouput, CRectangle& rect);
+	friend ofstream& operator<<(ofstream& ouput, CTriangle& tri);
+	friend ofstream& operator<<(ofstream& ouput, CRhombus& rho);
+	friend ofstream& operator<<(ofstream& ouput, CCircle& circ);
+	friend ofstream& operator<<(ofstream& ouput, CEllipse& elli);
 };
 

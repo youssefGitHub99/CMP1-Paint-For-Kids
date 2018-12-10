@@ -209,7 +209,7 @@ void Output::CreatePlayToolBar() const
 
 void Output::CreateColorToolBar()const{
 	ClearToolBar();
-	UI.InterfaceMode = COLOR;
+	UI.InterfaceMode = COLOR_TOOLBAR;
 	string ColorItemImages[COLOR_ITM_COUNT];
 	ColorItemImages[ITM_COLOR_BLACK] = pathBlack;
 	ColorItemImages[ITM_COLOR_BLUE] = pathBlue;
@@ -226,7 +226,7 @@ void Output::CreateColorToolBar()const{
 
 void Output::CreateResizeToolBar()const {
 	ClearToolBar();
-	UI.InterfaceMode = RESIZE;
+	UI.InterfaceMode = RESIZE_TOOLBAR;
 	string ResizeItemImages[RESIZE_ITM_COUNT];
 	ResizeItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
 	ResizeItemImages[ITM_RESIZE_QUARTER] = "images\\MenuItems\\Menu_x0.25.jpg";

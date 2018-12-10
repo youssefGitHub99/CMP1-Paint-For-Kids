@@ -32,19 +32,18 @@ void SaveAction::ReadActionParameters() {
 	//--------------------------------------------------------------------------------------------------------------------
 
 	/// Should check the extension first.
-
 	CheckExtensionProbabilities checkExtension = SaveLoadUtility::checkExtension(path);
 
 	// The following extension checking isn't needed if we're using OPENFILENAME (with filters) or similar stuff that open a file dialogue.
 	/*if (checkExtension == NOT_TXT) {
 		pOut->PrintMessage("Wrong File Type."); /// If the user selects a file with the wrong extension, we should output an ERROR to the status bar.
 		return;
-	} else */if (checkExtension == NO_EXTENSION) {
-		pOut->PrintMessage("File Has Been Created And Saved.");
+	} else*/ if (checkExtension == NO_EXTENSION) {
+		//pOut->PrintMessage("File Has Been Created And Saved.");
 		path.append(".txt"); /// If the path doesn't end with an extension. we should add the proper extenstion to the end.
-	} else {
+	} /*else {
 		pOut->PrintMessage("File Has Been Overwriten.");
-	}
+	}*/
 	std::cout << path;
 
 	//--------------------------------------------------------------------------------------------------------------------
@@ -85,9 +84,11 @@ void SaveAction::Execute() {
 			else if (rho != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RHOMBUS))*pOutputFileStream << *rho;
 			else if (circ != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_CIRCLE))	*pOutputFileStream << *circ;
 			else if (elli != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_ELLIPSE))*pOutputFileStream << *elli;
+
+			*pOutputFileStream << ' ' << 1; /// The resize Factor (To be handled later)
 		}
 
-		//pManager->GetOutput()->PrintMessage("File Has Been Overwriten.");
+		pManager->GetOutput()->PrintMessage("File Has Been Saved.");
 	}
 
 	if (pOutputFileStream != NULL) {
@@ -122,4 +123,132 @@ bool SaveAction::dontSaveCuzThereIsNoFigures() {
 	return false;
 }
 
+ofstream& operator<<(ofstream& output, CLine& line) {
+	Point p1;
+	Point p2;
+	line.getPoints(p1, p2);
+
+	ReservedKeywords c = SaveLoadUtility::colorIntoKeyword(line.getGfxInfo().DrawClr);
+
+	output
+		<< KEYWORD_LINE << ' '
+		<< line.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< p2.x << ' '
+		<< p2.y << ' '
+		<< c
+		<< '\n';
+
+	return output;
+}
+
+ofstream& operator<<(ofstream& output, CRectangle& rect) {
+	Point p1, p2;
+	rect.getPoints(p1, p2);
+
+	ReservedKeywords drawColor, fillColor;
+	SaveAction::colorsIntoKeywords(rect.getGfxInfo(), drawColor, fillColor);
+
+	output
+		<< KEYWORD_RECT << ' '
+		<< rect.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< p2.x << ' '
+		<< p2.y << ' '
+		<< drawColor << ' '
+		<< fillColor
+		<< '\n';
+
+	return output;
+}
+
+ofstream& operator<<(ofstream& output, CTriangle& tri) {
+	Point p1, p2, p3;
+	tri.getPoints(p1, p2, p3);
+
+	ReservedKeywords drawColor, fillColor;
+	SaveAction::colorsIntoKeywords(tri.getGfxInfo(), drawColor, fillColor);
+
+	output
+		<< KEYWORD_TRI << ' '
+		<< tri.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< p2.x << ' '
+		<< p2.y << ' '
+		<< p3.x << ' '
+		<< p3.y << ' '
+		<< drawColor << ' '
+		<< fillColor
+		<< '\n';
+
+	return output;
+}
+
+ofstream& operator<<(ofstream& output, CRhombus& rho) {
+	Point p1;
+	rho.getPoints(p1);
+
+	ReservedKeywords drawColor, fillColor;
+	SaveAction::colorsIntoKeywords(rho.getGfxInfo(), drawColor, fillColor);
+
+	output
+		<< KEYWORD_RHOMBUS << ' '
+		<< rho.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< drawColor << ' '
+		<< fillColor
+		<< '\n';
+
+	return output;
+}
+
+ofstream& operator<<(ofstream& output, CCircle& circ) {
+	Point p1;
+	circ.getPoints(p1);
+
+	ReservedKeywords drawColor, fillColor;
+	SaveAction::colorsIntoKeywords(circ.getGfxInfo(), drawColor, fillColor);
+
+	output
+		<< KEYWORD_CIRCLE << ' '
+		<< circ.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< drawColor << ' '
+		<< fillColor
+		<< '\n';
+
+	return output;
+}
+
+ofstream& operator<<(ofstream& output, CEllipse& elli) {
+	Point p1;
+	elli.getPoints(p1);
+
+	ReservedKeywords drawColor, fillColor;
+	SaveAction::colorsIntoKeywords(elli.getGfxInfo(), drawColor, fillColor);
+
+	output
+		<< KEYWORD_ELLIPSE << ' '
+		<< elli.getId() << ' '
+		<< p1.x << ' '
+		<< p1.y << ' '
+		<< drawColor << ' '
+		<< fillColor
+		<< '\n';
+
+	return output;
+}
+
+void SaveAction::SaveAction::colorsIntoKeywords(GfxInfo gfxInfo, ReservedKeywords& drawColor, ReservedKeywords& fillColor) {
+	drawColor = SaveLoadUtility::colorIntoKeyword(gfxInfo.DrawClr);
+	fillColor = KEYWORD_NO_FILL;
+
+	if (gfxInfo.isFilled)
+		fillColor = SaveLoadUtility::colorIntoKeyword(gfxInfo.FillClr);
+}
 

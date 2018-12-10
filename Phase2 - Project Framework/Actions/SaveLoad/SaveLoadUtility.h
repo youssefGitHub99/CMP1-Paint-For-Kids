@@ -92,32 +92,51 @@ enum CheckExtensionProbabilities {
 	TXT
 };
 
+
+///////////////////////////////////////////////////////
 enum FileLinesFormat{
-	DRAWCOLOR_FILLCOLOR, 
-	FIGURES_COUNT, 
-	FIGURES_DESCRIPTION
+	LINE_DRAWCOLOR_FILLCOLOR, 
+	LINE_FIGURES_COUNT, 
+
+	LINE_FIG_TYPE_MIN_INDEX,
+
+	LINE_LINE,
+	LINE_RECT,
+	LINE_TRI,
+	LINE_RHOMBUS,
+	LINE_CIRCLE,
+	LINE_ELLIPSE, 
+
+	LINE_FIG_TYPE_MAX_INDEX
 };
+
+enum WordType {
+	INTEGER, // FigCount, Position or ID
+	COLOR, 
+	SHAPE, 
+	RESIZE_FACTOR
+};
+///////////////////////////////////////////////////////
 
 class SaveLoadUtility
 {
 	SaveLoadUtility(); // Creating an instance of this class makes no sense. (private constructor)
 
-	static void colorsIntoKeywords(GfxInfo gfxInfo, ReservedKeywords& drawColor, ReservedKeywords& fillColor);
+	static const WordType lineDrawColorFillColorDescription[2];
+	static const WordType lineFiguresCountDescription[1];
+	static const WordType lineLineDescription[8];
+	static const WordType lineRectDescription[9];
+	static const WordType lineTriDescription[11];
+	static const WordType lineRhombusDescription[6];
+	static const WordType lineCircleDescription[6];
+	static const WordType lineEllipseDescription[6];
+
 	static std::string wstrtostr(const std::wstring &wstr); 
 
 public:
 	
 	DEPRECATED(static std::string fileDialogOld(FileDialogType type));
 	static string fileDialog(FileDialogType type);
-	static CheckExtensionProbabilities checkExtension(std::string& path);
 	static ReservedKeywords colorIntoKeyword(color c);
-
-	friend ofstream& operator<<(ofstream& ouput, CLine& line);
-	friend ofstream& operator<<(ofstream& ouput, CRectangle& rect);
-	friend ofstream& operator<<(ofstream& ouput, CTriangle& tri);
-	friend ofstream& operator<<(ofstream& ouput, CRhombus& rho);
-	friend ofstream& operator<<(ofstream& ouput, CCircle& circ);
-	friend ofstream& operator<<(ofstream& ouput, CEllipse& elli);
-
-	static FileLinesFormat currentLineFormat(int i);
+	static CheckExtensionProbabilities checkExtension(std::string& path);
 };

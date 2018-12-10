@@ -99,12 +99,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case CHNG_DRAW_CLR:
 		pOut->CreateColorToolBar();
-		UI.InterfaceMode = COLOR;
+		UI.InterfaceMode = COLOR_TOOLBAR;
 		UI.ColorInterface = DRAWING_COLOR;
 		break;
 	case CHNG_FILL_CLR:
 		pOut->CreateColorToolBar();
-		UI.InterfaceMode = COLOR;
+		UI.InterfaceMode = COLOR_TOOLBAR;
 		UI.ColorInterface = FILL_COLOR;
 		break;
 	case COLOR_BLACK:

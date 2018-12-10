@@ -11,8 +11,8 @@ enum GUI_MODE	//Graphical user interface mode (Toolbars)
 {
 	MODE_DRAW,	//Drawing mode (startup mode)
 	MODE_PLAY,  //Playing mode
-	COLOR,
-	RESIZE,
+	COLOR_TOOLBAR,
+	RESIZE_TOOLBAR,
 	SAVE_BY_TYBE_TOOLBAR
 };
 
