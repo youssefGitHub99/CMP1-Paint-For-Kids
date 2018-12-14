@@ -8,6 +8,11 @@
 #include "Actions/SaveLoad/SaveAction.h"
 #include "Actions/SaveLoad/LoadAction.h"
 
+#include <Mmsystem.h>
+#include <mciapi.h>
+//these two headers are already included in the <Windows.h> header
+#pragma comment(lib, "Winmm.lib")
+
 #define MAXFIGCOUNT 200
 
 //Main class that manages everything in the application.
@@ -25,6 +30,8 @@ private:
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
+
+	bool soundMuted;
 
 public:	
 	
@@ -47,6 +54,7 @@ public:
 	CFigure* GetSelectedFigure() const;
 	void removeSelection();
 	void deleteSelectedFigure();
+	void playSound(Action* pAct);
 
 
 	// -- Interface Management Functions

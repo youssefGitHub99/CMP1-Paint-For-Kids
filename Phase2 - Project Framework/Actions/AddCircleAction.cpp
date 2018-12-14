@@ -8,6 +8,7 @@
 
 AddCircleAction::AddCircleAction(ApplicationManager * pApp):Action(pApp)
 {
+	soundPath = "Sounds\\Figure_Circle.wav";
 }
 
 void AddCircleAction::ReadActionParameters() {

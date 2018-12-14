@@ -8,6 +8,7 @@
 
 AddRhombusAction::AddRhombusAction(ApplicationManager * pApp) :Action(pApp)
 {
+	soundPath = "Sounds\\Figure_Diamond.wav";
 }
 
 void AddRhombusAction::ReadActionParameters() {

@@ -10,6 +10,7 @@
 
 AddTriangleAction::AddTriangleAction(ApplicationManager * pApp):Action(pApp)
 {
+	soundPath = "Sounds\\Figure_Triangle.wav";
 }
 void AddTriangleAction::ReadActionParameters()
 {

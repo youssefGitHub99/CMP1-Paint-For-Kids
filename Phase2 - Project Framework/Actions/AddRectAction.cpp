@@ -7,7 +7,9 @@
 #include "..\GUI\Output.h"
 
 AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
-{}
+{
+	soundPath = "Sounds\\Figure_Rect.wav";
+}
 
 void AddRectAction::ReadActionParameters() 
 {	

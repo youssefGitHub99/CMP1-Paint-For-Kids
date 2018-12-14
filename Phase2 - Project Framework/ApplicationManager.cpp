@@ -28,6 +28,8 @@ ApplicationManager::ApplicationManager()
 
 	FigCount = 0;
 
+	soundMuted = false;
+
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
@@ -133,6 +135,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		deleteSelectedFigure();
 		break;
+	case MUTE:
+		soundMuted = true;
+		pOut->PrintMessage("Sound is now muted.");
+		break;
+	case UNMUTE:
+		soundMuted = false;
+		pOut->PrintMessage("Sound is now working.");
+		break;
 
 	case EXIT:
 		///create ExitAction here
@@ -147,6 +157,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute(); //Execute
+		
+		playSound(pAct);
+
 		delete pAct;	 //Action is not needed any more ==> delete it
 		pAct = NULL;
 	}
@@ -215,6 +228,13 @@ void ApplicationManager::deleteSelectedFigure() {
 		UpdateInterface();
 
 	}
+}
+
+void ApplicationManager::playSound(Action* pAct) {
+	if (soundMuted) return;
+
+	if (pAct->getSoundPath() != NULL)
+		sndPlaySound(*pAct->getSoundPath(), SND_FILENAME | SND_ASYNC);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
