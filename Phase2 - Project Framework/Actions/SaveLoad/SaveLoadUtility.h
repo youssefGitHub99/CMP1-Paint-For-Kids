@@ -11,15 +11,6 @@
 #include "../../Figures/CCircle.h"
 #include "../../Figures/CEllipse.h"
 
-#ifdef __GNUC__
-#define DEPRECATED(func) func __attribute__ ((deprecated))
-#elif defined(_MSC_VER)
-#define DEPRECATED(func) __declspec(deprecated) func
-#else
-#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
-#define DEPRECATED(func) func
-#endif
-
 // The following inclusions and definitions are from :
 /////////////////// https://www.github.com/Microsoft/Windows-classic-samples/blob/master/Samples/Win7Samples/winui/shell/appplatform/commonfiledialog/CommonFileDialogApp.cpp ///////////////////
 /////////////////// https://www.github.com/Microsoft/Windows-classic-samples/blob/master/Samples/Win7Samples/winui/shell/appplatform/commonfiledialog/CommonFileDialogApp.cpp ///////////////////
@@ -67,18 +58,27 @@ const COMDLG_FILTERSPEC c_rgSaveTypes[] =
 //#define IDC_WRITEPROPERTIESWITHOUTUSINGHANDLERS 105
 
 enum ReservedKeywords {
+	KEYWORD_COLOR_MIN_INDEX, 
+
 	KEYWORD_RED, 
 	KEYWORD_GREEN, 
 	KEYWORD_BLUE, 
 	KEYWORD_BLACK, 
 	KEYWORD_WHITE, 
 	KEYWORD_NO_FILL, 
+
+	KEYWORD_COLOR_MAX_INDEX, 
+
+	KEYWORD_SHAPES_MIN_INDEX, 
+
 	KEYWORD_LINE, 
 	KEYWORD_RECT, 
 	KEYWORD_TRI, 
 	KEYWORD_RHOMBUS, 
 	KEYWORD_CIRCLE, 
-	KEYWORD_ELLIPSE
+	KEYWORD_ELLIPSE, 
+
+	KEYWORD_SHAPES_MAX_INDEX, 
 };
 
 enum FileDialogType {
@@ -111,32 +111,52 @@ enum FileLinesFormat{
 };
 
 enum WordType {
-	INTEGER, // FigCount, Position or ID
+	MAXFIGNUM, 
+	INTEGER, // Position
 	COLOR, 
-	SHAPE, 
+	FIGURE, 
 	RESIZE_FACTOR
 };
 ///////////////////////////////////////////////////////
+
+//lineDrawColorFillColorDescription Size
+#define LDCFCDS 2
+//lineFiguresCountDescription Size
+#define LFCDS 1
+//lineLineDescription Size
+#define LLDS 8
+//lineRectDescription Size
+#define LRectDS 9
+//lineTriDescription Size
+#define LTDS 11
+//lineRhombusDescription Size
+#define LRhoDS 7
+//lineCircleDescription Size
+#define LCDS 7
+//lineEllipseDescription Size
+#define LEDS 7
 
 class SaveLoadUtility
 {
 	SaveLoadUtility(); // Creating an instance of this class makes no sense. (private constructor)
 
-	static const WordType lineDrawColorFillColorDescription[2];
-	static const WordType lineFiguresCountDescription[1];
-	static const WordType lineLineDescription[8];
-	static const WordType lineRectDescription[9];
-	static const WordType lineTriDescription[11];
-	static const WordType lineRhombusDescription[6];
-	static const WordType lineCircleDescription[6];
-	static const WordType lineEllipseDescription[6];
-
 	static std::string wstrtostr(const std::wstring &wstr); 
 
 public:
+
+	static const WordType lineDrawColorFillColorDescription[LDCFCDS];
+	static const WordType lineFiguresCountDescription[LFCDS];
+	static const WordType lineLineDescription[LLDS];
+	static const WordType lineRectDescription[LRectDS];
+	static const WordType lineTriDescription[LTDS];
+	static const WordType lineRhombusDescription[LRhoDS];
+	static const WordType lineCircleDescription[LCDS];
+	static const WordType lineEllipseDescription[LEDS];
+
 	
-	DEPRECATED(static std::string fileDialogOld(FileDialogType type));
+	static std::string fileDialogOld(FileDialogType type);
 	static string fileDialog(FileDialogType type);
 	static ReservedKeywords colorIntoKeyword(color c);
+	static color keywordIntoColor(ReservedKeywords keyword);
 	static CheckExtensionProbabilities checkExtension(std::string& path);
 };

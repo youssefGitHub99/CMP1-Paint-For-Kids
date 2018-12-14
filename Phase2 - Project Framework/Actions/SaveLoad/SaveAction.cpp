@@ -1,4 +1,5 @@
 #include "SaveAction.h"
+#define RESIZEFACTOR 1
 
 SaveAction::SaveAction(ApplicationManager * pApp, SaveType saveType) : Action(pApp), saveType(saveType)
 {
@@ -23,11 +24,12 @@ void SaveAction::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 
 	string path;
-	//path = SaveLoadUtility::fileDialogOld(DIALOG_SAVE); //DEPRECATED
-	path = SaveLoadUtility::fileDialog(DIALOG_SAVE);
+	path = SaveLoadUtility::fileDialogOld(DIALOG_SAVE);
+	//path = SaveLoadUtility::fileDialog(DIALOG_SAVE);
 
 	//path = pManager->GetInput()->GetSrting(pOut);
 	if (path.empty()) return; // If the user pressed cancel, it returns an empty string.
+	cout << "\n-----------SAVE------------- " << path << " -----------SAVE-------------\n";
 
 	//--------------------------------------------------------------------------------------------------------------------
 
@@ -44,8 +46,6 @@ void SaveAction::ReadActionParameters() {
 	} /*else {
 		pOut->PrintMessage("File Has Been Overwriten.");
 	}*/
-	std::cout << path;
-
 	//--------------------------------------------------------------------------------------------------------------------
 	pOutputFileStream = new ofstream(path);
 	if (!pOutputFileStream->is_open()) 
@@ -78,15 +78,16 @@ void SaveAction::Execute() {
 			CCircle*	circ = dynamic_cast<CCircle*>(figure);
 			CEllipse*	elli = dynamic_cast<CEllipse*>(figure);
 
-			if (line != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_LINE))	*pOutputFileStream << *line;
-			else if (rect != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RECT))	*pOutputFileStream << *rect;
-			else if (tri != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_TRI))	*pOutputFileStream << *tri;
-			else if (rho != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RHOMBUS))*pOutputFileStream << *rho;
-			else if (circ != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_CIRCLE))	*pOutputFileStream << *circ;
-			else if (elli != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_ELLIPSE))*pOutputFileStream << *elli;
+			if (line != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_LINE))	*pOutputFileStream << *line << ' ' << RESIZEFACTOR << '\n';
+			else if (rect != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RECT))	*pOutputFileStream << *rect << ' ' << RESIZEFACTOR << '\n';
+			else if (tri != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_TRI))	*pOutputFileStream << *tri << ' ' << RESIZEFACTOR << '\n';
+			else if (rho != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RHOMBUS))*pOutputFileStream << *rho << ' ' << RESIZEFACTOR << '\n';
+			else if (circ != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_CIRCLE))	*pOutputFileStream << *circ << ' ' << RESIZEFACTOR << '\n';
+			else if (elli != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_ELLIPSE))*pOutputFileStream << *elli << ' ' << RESIZEFACTOR << '\n';
+			/// The resize Factor (To be handled later)
 
-			*pOutputFileStream << ' ' << 1; /// The resize Factor (To be handled later)
 		}
+		
 
 		pManager->GetOutput()->PrintMessage("File Has Been Saved.");
 	}
@@ -138,7 +139,7 @@ ofstream& operator<<(ofstream& output, CLine& line) {
 		<< p2.x << ' '
 		<< p2.y << ' '
 		<< c
-		<< '\n';
+		;
 
 	return output;
 }
@@ -159,7 +160,7 @@ ofstream& operator<<(ofstream& output, CRectangle& rect) {
 		<< p2.y << ' '
 		<< drawColor << ' '
 		<< fillColor
-		<< '\n';
+		;
 
 	return output;
 }
@@ -182,7 +183,7 @@ ofstream& operator<<(ofstream& output, CTriangle& tri) {
 		<< p3.y << ' '
 		<< drawColor << ' '
 		<< fillColor
-		<< '\n';
+		;
 
 	return output;
 }
@@ -201,7 +202,7 @@ ofstream& operator<<(ofstream& output, CRhombus& rho) {
 		<< p1.y << ' '
 		<< drawColor << ' '
 		<< fillColor
-		<< '\n';
+		;
 
 	return output;
 }
@@ -220,7 +221,7 @@ ofstream& operator<<(ofstream& output, CCircle& circ) {
 		<< p1.y << ' '
 		<< drawColor << ' '
 		<< fillColor
-		<< '\n';
+		;
 
 	return output;
 }
@@ -239,7 +240,7 @@ ofstream& operator<<(ofstream& output, CEllipse& elli) {
 		<< p1.y << ' '
 		<< drawColor << ' '
 		<< fillColor
-		<< '\n';
+		;
 
 	return output;
 }

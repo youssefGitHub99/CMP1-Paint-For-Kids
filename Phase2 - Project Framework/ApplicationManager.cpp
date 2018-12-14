@@ -168,6 +168,10 @@ int ApplicationManager::getFigCount() const {
 	return FigCount;
 }
 
+void ApplicationManager::setFigCount(int figCount) {
+	this->FigCount = figCount;
+}
+
 int ApplicationManager::getMaxFigCount() const {
 	return MaxFigCount;
 }

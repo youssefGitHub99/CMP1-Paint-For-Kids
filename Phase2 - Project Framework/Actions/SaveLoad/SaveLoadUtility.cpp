@@ -8,14 +8,14 @@ SaveLoadUtility::SaveLoadUtility()
 
 }
 
-const WordType SaveLoadUtility::lineDrawColorFillColorDescription[] = {COLOR, COLOR};
-const WordType SaveLoadUtility::lineFiguresCountDescription[] = {INTEGER};
-const WordType SaveLoadUtility::lineLineDescription[] = {SHAPE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, RESIZE_FACTOR};
-const WordType SaveLoadUtility::lineRectDescription[] = {SHAPE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR};
-const WordType SaveLoadUtility::lineTriDescription[] = {SHAPE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR};
-const WordType SaveLoadUtility::lineRhombusDescription[] = { SHAPE, INTEGER, INTEGER, INTEGER, COLOR, RESIZE_FACTOR };
-const WordType SaveLoadUtility::lineCircleDescription[] = { SHAPE, INTEGER, INTEGER, INTEGER, COLOR, RESIZE_FACTOR };
-const WordType SaveLoadUtility::lineEllipseDescription[] = { SHAPE, INTEGER, INTEGER, INTEGER, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineDrawColorFillColorDescription[] = { COLOR, COLOR };
+const WordType SaveLoadUtility::lineFiguresCountDescription[] = { MAXFIGNUM };
+const WordType SaveLoadUtility::lineLineDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineRectDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineTriDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineRhombusDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineCircleDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR };
+const WordType SaveLoadUtility::lineEllipseDescription[] = { FIGURE, INTEGER, INTEGER, INTEGER, COLOR, COLOR, RESIZE_FACTOR };
 
 string SaveLoadUtility::fileDialogOld(FileDialogType type) { // http://www.cplusplus.com/forum/windows/169960/
 	const int BUFSIZE = 1024;
@@ -29,6 +29,12 @@ string SaveLoadUtility::fileDialogOld(FileDialogType type) { // http://www.cplus
 	ofns.nMaxFile = BUFSIZE;
 	ofns.lpstrFilter = "Text Files (*.txt)\0*.txt\0";
 	ofns.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST | OFN_CREATEPROMPT;
+
+	// A solution to the previous problem adressed in commit 59788d4267a2b73950dbb8d630eacaa13fa969ed https://stackoverflow.com/questions/50468051/how-to-prevent-getopenfilename-from-changing-the-current-directory-while-the-dia
+	TCHAR g_BackupDir[MAX_PATH];
+	GetCurrentDirectory(ARRAYSIZE(g_BackupDir), g_BackupDir);
+	////////////////////////////
+
 	if (type == DIALOG_OPEN) {
 		ofns.lpstrTitle = "Open";
 		GetOpenFileName(&ofns);
@@ -36,6 +42,8 @@ string SaveLoadUtility::fileDialogOld(FileDialogType type) { // http://www.cplus
 		ofns.lpstrTitle = "Save";
 		GetSaveFileName(&ofns);
 	}
+
+	SetCurrentDirectory(g_BackupDir);
 	return buffer;
 }
 
@@ -46,6 +54,11 @@ string SaveLoadUtility::fileDialog(FileDialogType type) { // https://www.github.
 	HRESULT hr;
 	if (type == DIALOG_OPEN) hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd));
 	else hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd));
+
+	//pfd->SetOptions(OFN_NOCHANGEDIR); Does basically nothing;
+	TCHAR g_BackupDir[MAX_PATH];
+	GetCurrentDirectory(ARRAYSIZE(g_BackupDir), g_BackupDir);
+	
 	if (SUCCEEDED(hr))
 	{
 //		// Create an event handling object, and hook it up to the dialog.
@@ -122,6 +135,7 @@ string SaveLoadUtility::fileDialog(FileDialogType type) { // https://www.github.
 		//}
 		pfd->Release();
 	}
+	SetCurrentDirectory(g_BackupDir);
 	//return hr;
 	return path;
 }
@@ -149,6 +163,19 @@ ReservedKeywords SaveLoadUtility::colorIntoKeyword(color c) {
 	if (c == BLUE)
 		return KEYWORD_BLUE;
 	throw "The Color Must be BLACK, WHITE, RED, GREEN or BLUE.";
+}
+
+color SaveLoadUtility::keywordIntoColor(ReservedKeywords keyword) {
+	if (keyword == KEYWORD_BLACK)
+		return BLACK;
+	if (keyword == KEYWORD_WHITE)
+		return WHITE;
+	if (keyword == KEYWORD_RED)
+		return RED;
+	if (keyword == KEYWORD_GREEN)
+		return GREEN;
+	if (keyword == KEYWORD_BLUE)
+		return BLUE;
 }
 
 CheckExtensionProbabilities SaveLoadUtility::checkExtension(std::string& path) {

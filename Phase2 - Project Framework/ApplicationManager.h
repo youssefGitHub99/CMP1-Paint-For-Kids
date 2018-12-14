@@ -8,10 +8,12 @@
 #include "Actions/SaveLoad/SaveAction.h"
 #include "Actions/SaveLoad/LoadAction.h"
 
+#define MAXFIGCOUNT 200
+
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-	enum { MaxFigCount = 200 };	//Max no of figures
+	enum { MaxFigCount = MAXFIGCOUNT };	//Max no of figures
 
 private:
 	int FigCount;		//Actual number of figures
@@ -37,6 +39,7 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);        //Adds a new figure to the FigList
 	int getFigCount() const;
+	void setFigCount(int figCount);
 	int getMaxFigCount() const;
 	template<typename T> int getNumOf() const;
 	CFigure* GetFigure(int index) const;
@@ -49,10 +52,7 @@ public:
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
-	void UpdateInterface() const;	//Redraws all the drawing window	
-
-
-	
+	void UpdateInterface() const;	//Redraws all the drawing window
 
 };
 
