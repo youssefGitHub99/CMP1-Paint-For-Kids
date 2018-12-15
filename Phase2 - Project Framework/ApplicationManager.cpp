@@ -10,6 +10,7 @@
 #include "Actions\AddRhombusAction.h"
 #include "Actions/SelectItemAction.h"
 #include "Actions/ChangeColorAction.h"
+#include "Actions/ResizeAction.h"
 #include "Figures/CLine.h"
 #include "Figures/CTriangle.h"
 #include "Figures/CEllipse.h"
@@ -56,6 +57,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT_FIGURE:
 		pAct = new SelectItemAction(this);
 		break;
+	case DRAW_LINE:
+		///create AddLineAction here
+		pAct = new AddLineAction(this);
+		break;
 	case DRAW_RHOMBUS:
 		pAct = new AddRhombusAction(this);
 		break;
@@ -76,7 +81,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case SAVE_BY_TYPE:
 		pOut->CreateSaveByTypeToolBar();
-		UI.InterfaceMode = SAVE_BY_TYBE_TOOLBAR;
 		break;
 	case SAVE_LINE:
 		pAct = new SaveAction(this, SAVE_TYPE_LINE);
@@ -101,12 +105,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case CHNG_DRAW_CLR:
 		pOut->CreateColorToolBar();
-		UI.InterfaceMode = COLOR_TOOLBAR;
 		UI.ColorInterface = DRAWING_COLOR;
 		break;
 	case CHNG_FILL_CLR:
 		pOut->CreateColorToolBar();
-		UI.InterfaceMode = COLOR_TOOLBAR;
 		UI.ColorInterface = FILL_COLOR;
 		break;
 	case COLOR_BLACK:
@@ -128,9 +130,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->CreateDrawToolBar();
 		UI.InterfaceMode = MODE_DRAW;
 		break;
-	case DRAW_LINE:
-		///create AddLineAction here
-		pAct = new AddLineAction(this);
+	case RESIZE_SHAPE:
+		pOut->CreateResizeToolBar();
+		break;
+	case RESIZE_QUARTER:
+		pAct = new ResizeAction(this, 0.25);
+		break;
+	case RESIZE_HALF:
+		pAct = new ResizeAction(this, 0.5);
+		break;
+	case RESIZE_ORIGINAL:
+		pAct = new ResizeAction(this, 1);
+		break;
+	case RESIZE_DOUBLE:
+		pAct = new ResizeAction(this, 2);
+		break;
+	case RESIZE_FOUR_TIMES:
+		pAct = new ResizeAction(this, 4);
 		break;
 	case DEL:
 		deleteSelectedFigure();
@@ -236,6 +252,17 @@ void ApplicationManager::playSound(Action* pAct) {
 	if (pAct->getSoundPath() != NULL)
 		sndPlaySound(*pAct->getSoundPath(), SND_FILENAME | SND_ASYNC);
 }
+
+bool ApplicationManager::aFigureMustBeSelectedFirst(CFigure *& selectedFigure)
+{
+	if (GetSelectedFigure() == NULL) {
+		pOut->PrintMessage("Please select a figure first.");
+		return false;
+	}
+
+	selectedFigure = GetSelectedFigure();
+	return true;
+}
 ////////////////////////////////////////////////////////////////////////////////////
 
 float TriangleArea(float x1, float y1, float x2, float y2, float x3, float y3) {
@@ -262,10 +289,10 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		
 		else if (dynamic_cast<CCircle *>(FigList[i]) != NULL) {
 			Point center;
-			dynamic_cast<CCircle *>(FigList[i])->getPoints(center);
+			dynamic_cast<CCircle *>(FigList[i])->getCenter(center);
 			int factor =dynamic_cast<CCircle *>(FigList[i])->getFactor();
 			float D = getDistance(click,center);
-			if (D > 16 * factor)
+			if (D > 16 * INITIALFACTOR * factor)
 				continue;
 			else
 				return FigList[i];
@@ -276,7 +303,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		else if (dynamic_cast<CRectangle *>(FigList[i]) != NULL) {
 			Point p1;
 			Point p2;
-			dynamic_cast<CRectangle *>(FigList[i])->getPoints(p1, p2);
+			dynamic_cast<CRectangle *>(FigList[i])->getTranslatedPoints(p1, p2);
 			if (click.x >= min(p1.x, p2.x) && click.x <= max(p1.x, p2.x) && click.y >= min(p1.y, p2.y) && click.y <= max(p1.y, p2.y))
 				return FigList[i];
 			else
@@ -288,7 +315,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 			Point p1;
 			Point p2;
 			Point p3;
-			dynamic_cast<CTriangle *>(FigList[i])->getPoints(p1, p2, p3);
+			dynamic_cast<CTriangle *>(FigList[i])->getTranslatedPoints(p1, p2, p3);
 			float D1, D2, D3;
 			D1 = getDistance(click, p1);
 			D2 = getDistance(click, p2);
@@ -312,16 +339,16 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		
 		else if (dynamic_cast<CRhombus *>(FigList[i]) != NULL) {
 			Point center;
-			dynamic_cast<CRhombus *>(FigList[i])->getPoints(center);
+			dynamic_cast<CRhombus *>(FigList[i])->getCenter(center);
 			Point p1, p2, p3, p4;
 			p1.x = center.x;
-			p1.y = center.y + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p1.y = center.y + (int)16 * INITIALFACTOR *dynamic_cast<CRhombus *>(FigList[i])->getFactor();
 			p3.x = center.x;
-			p3.y = center.y - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p3.y = center.y - (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
 			p2.y = center.y;
-			p2.x = center.x + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p2.x = center.x + (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
 			p4.y = center.y;
-			p4.x = center.x - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p4.x = center.x - (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
 			
 			bool inside1 = false;
 			bool inside2 = false;

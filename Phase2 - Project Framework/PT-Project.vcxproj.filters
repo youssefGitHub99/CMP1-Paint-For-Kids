@@ -193,6 +193,9 @@
     <ClCompile Include="Actions\SaveLoad\SaveLoadUtility.cpp">
       <Filter>Action Classes\SaveLoad</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\ResizeAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -324,6 +327,9 @@
     </ClInclude>
     <ClInclude Include="Actions\SaveLoad\SaveLoadUtility.h">
       <Filter>Action Classes\SaveLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ResizeAction.h">
+      <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

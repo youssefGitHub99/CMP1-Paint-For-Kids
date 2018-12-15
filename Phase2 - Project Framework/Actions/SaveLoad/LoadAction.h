@@ -15,7 +15,7 @@ class LoadAction : public Action
 	FileLinesFormat getFigureFromLine(float firstWordInLine);
 	void setLineDescription(FileLinesFormat lineFormat, const WordType*& descriptionArr, int& arrSize);
 	bool getCorrectWordType(int wordCounter, const WordType* descriptionArr, int size, WordType& type);
-	void getWordRangeExclusive(WordType type, int& min, int& max);
+	void getWordRangeExclusive(WordType type, float & min, float & max);
 	bool validateWord(float currentWord, WordType correctType);
 
 	void translateFigureWords(const float* figureWords, CFigure** loadedFigures, int& currentLoadedFiguresIndex);

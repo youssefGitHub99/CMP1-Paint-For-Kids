@@ -156,6 +156,7 @@ public:
 	
 	static std::string fileDialogOld(FileDialogType type);
 	static string fileDialog(FileDialogType type);
+	static bool is_empty(std::ifstream * pFile);
 	static ReservedKeywords colorIntoKeyword(color c);
 	static color keywordIntoColor(ReservedKeywords keyword);
 	static CheckExtensionProbabilities checkExtension(std::string& path);

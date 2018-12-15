@@ -134,6 +134,7 @@
     <ClCompile Include="Actions\AddRhombusAction.cpp" />
     <ClCompile Include="Actions\AddTriangleAction.cpp" />
     <ClCompile Include="Actions\ChangeColorAction.cpp" />
+    <ClCompile Include="Actions\ResizeAction.cpp" />
     <ClCompile Include="Actions\SaveLoad\LoadAction.cpp" />
     <ClCompile Include="Actions\SaveLoad\SaveAction.cpp" />
     <ClCompile Include="Actions\SaveLoad\SaveLoadUtility.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Actions\AddRhombusAction.h" />
     <ClInclude Include="Actions\AddTriangleAction.h" />
     <ClInclude Include="Actions\ChangeColorAction.h" />
+    <ClInclude Include="Actions\ResizeAction.h" />
     <ClInclude Include="Actions\SaveLoad\LoadAction.h" />
     <ClInclude Include="Actions\SaveLoad\SaveAction.h" />
     <ClInclude Include="Actions\SaveLoad\SaveLoadUtility.h" />

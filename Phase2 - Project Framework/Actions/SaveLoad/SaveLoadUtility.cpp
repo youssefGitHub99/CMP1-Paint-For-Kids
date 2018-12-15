@@ -140,6 +140,11 @@ string SaveLoadUtility::fileDialog(FileDialogType type) { // https://www.github.
 	return path;
 }
 
+bool SaveLoadUtility::is_empty(std::ifstream * pFile) //https://stackoverflow.com/questions/2390912/checking-for-an-empty-file-in-c
+{
+	return pFile->peek() == std::ifstream::traits_type::eof();
+}
+
 std::string SaveLoadUtility::wstrtostr(const std::wstring &wstr) // http://www.cplusplus.com/forum/windows/74644/
 {
 	std::string strTo;

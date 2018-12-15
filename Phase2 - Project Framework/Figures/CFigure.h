@@ -12,6 +12,8 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	
+	double factor;
+
 	/// Add more parameters if needed.
 
 public:
@@ -21,6 +23,9 @@ public:
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 	GfxInfo getGfxInfo() const;
+
+	double getFactor();
+	void setFactor(double factor);
 
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
 	

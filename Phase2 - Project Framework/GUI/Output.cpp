@@ -1,6 +1,8 @@
 #include "Output.h"
 #include <iostream>
 
+#define ORIGINCOLOR CYAN
+#define ORIGINFACTOR 0.05
 
 Output::Output()
 {
@@ -100,7 +102,7 @@ void Output::ClearToolBar() const {
 	gfxInfo.DrawClr = WHITE;
 	gfxInfo.FillClr = WHITE;
 	gfxInfo.isFilled = true;
-	this->DrawRect(P1, P2, gfxInfo);
+	this->DrawRect(P1, P2, gfxInfo, false, 1);
 }
 
 void Output::CreateDrawToolBar() const
@@ -176,7 +178,7 @@ void Output::CreatePlayToolBar() const
 	UI.InterfaceMode = MODE_PLAY;
 	///TODO: write code to create Play mode menu
 	string MenuItemImages[PLAY_ITM_COUNT];
-	
+
 	/*MenuItemImages[ITM_PLAY_LINE] = pathLine;
 	MenuItemImages[ITM_PLAY_ELLIPSE] = pathEllipse;
 	MenuItemImages[ITM_PLAY_RHOMBUS] = pathRhombus;
@@ -207,7 +209,7 @@ void Output::CreatePlayToolBar() const
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::CreateColorToolBar()const{
+void Output::CreateColorToolBar()const {
 	ClearToolBar();
 	UI.InterfaceMode = COLOR_TOOLBAR;
 	string ColorItemImages[COLOR_ITM_COUNT];
@@ -230,6 +232,7 @@ void Output::CreateResizeToolBar()const {
 	string ResizeItemImages[RESIZE_ITM_COUNT];
 	ResizeItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
 	ResizeItemImages[ITM_RESIZE_QUARTER] = "images\\MenuItems\\Menu_x0.25.jpg";
+	ResizeItemImages[ITM_RESIZE_ORIGINAL] = "images\\MenuItems\\Menu_x1.jpg";
 	ResizeItemImages[ITM_RESIZE_DOUBLE] = "images\\MenuItems\\Menu_x2.jpg";
 	ResizeItemImages[ITM_RESIZE_FORTIMES] = "images\\MenuItems\\Menu_x4.jpg";
 	ResizeItemImages[ITM_RESIZE_BACK] = pathBack;
@@ -296,7 +299,7 @@ int Output::getCrntPenWidth() const		//get current pen width
 //								Figures Drawing Functions								//
 //======================================================================================//
 
-void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
@@ -315,11 +318,17 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 		style = FRAME;
 
 
-	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
+	pWind->DrawRectangle(
+		P1.x, 
+		P1.y, 
+		POINTFACTORTRANSLATED_X_SQRT(P1.x, P2.x, factor),
+		POINTFACTORTRANSLATED_Y_SQRT(P1.y, P2.y, factor),
+		style
+	);
 
 }
 
-void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected) const
+void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
@@ -332,11 +341,16 @@ void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected) const
 	style = FRAME;
 
 
-	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
-
+	pWind->DrawLine(
+		P1.x,
+		P1.y,
+		POINTFACTORTRANSLATED_X(P1.x, P2.x, factor),
+		POINTFACTORTRANSLATED_Y(P1.y, P2.y, factor),
+		style
+	);
 }
 
-void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const
+void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
@@ -355,7 +369,15 @@ void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool sele
 		style = FRAME;
 
 
-	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
+	pWind->DrawTriangle(
+		P1.x,
+		P1.y,
+		POINTFACTORTRANSLATED_X_SQRT(P1.x, P2.x, factor),
+		POINTFACTORTRANSLATED_Y_SQRT(P1.y, P2.y, factor),
+		POINTFACTORTRANSLATED_X_SQRT(P1.x, P3.x, factor),
+		POINTFACTORTRANSLATED_Y_SQRT(P1.y, P3.y, factor),
+		style
+	);
 }
 
 void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected, double factor) const
@@ -376,8 +398,8 @@ void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected, double factor) c
 	else
 		style = FRAME;
 	//Defining coordinate arrays for the 4 points starting from the uppermost point and going clockwise
-	int iX[4] = { P1.x, P1.x + (int)16 * factor, P1.x, P1.x - (int)16 * factor };
-	int iY[4] = { P1.y + (int)16 * factor, P1.y, P1.y - (int)16 * factor, P1.y };
+	int iX[4] = { P1.x, P1.x + (int)(16 * INITIALFACTOR) * factor, P1.x, P1.x - (int)(16 * INITIALFACTOR) * factor };
+	int iY[4] = { P1.y + (int)(16 * INITIALFACTOR) * factor, P1.y, P1.y - (int)(16 * INITIALFACTOR) * factor, P1.y };
 	pWind->DrawPolygon(iX, iY, 4, style);
 }
 
@@ -399,10 +421,10 @@ void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) c
 	else
 		style = FRAME;
 	int iX1, iX2, iY1, iY2;
-	iX1 = P1.x - (int)32 * factor;
-	iY1 = P1.y - (int)16 * factor;
-	iX2 = P1.x + (int)32 * factor;
-	iY2 = P1.y + (int)16 * factor;
+	iX1 = P1.x - (int)(32 * INITIALFACTOR) * factor;
+	iY1 = P1.y - (int)(16 * INITIALFACTOR) * factor;
+	iX2 = P1.x + (int)(32 * INITIALFACTOR) * factor;
+	iY2 = P1.y + (int)(16 * INITIALFACTOR) * factor;
 
 	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
 }
@@ -425,12 +447,21 @@ void Output::DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) 
 	else
 		style = FRAME;
 	int iX1, iX2, iY1, iY2;
-	iX1 = P1.x - (int)16 * factor;
-	iY1 = P1.y - (int)16 * factor;
-	iX2 = P1.x + (int)16 * factor;
-	iY2 = P1.y + (int)16 * factor;
+	iX1 = P1.x - (int)(16 * INITIALFACTOR) * factor;
+	iY1 = P1.y - (int)(16 * INITIALFACTOR) * factor;
+	iX2 = P1.x + (int)(16 * INITIALFACTOR) * factor;
+	iY2 = P1.y + (int)(16 * INITIALFACTOR) * factor;
 
 	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
+}
+void Output::DrawOrigin(Point p)
+{
+	GfxInfo info;
+	info.DrawClr = ORIGINCOLOR;
+	info.FillClr = ORIGINCOLOR;
+	info.isFilled = true;
+
+	DrawCir(p, info, false, ORIGINFACTOR);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()

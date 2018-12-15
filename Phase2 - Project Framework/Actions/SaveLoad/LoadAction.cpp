@@ -51,7 +51,7 @@ void LoadAction::ReadActionParameters() {
 	pInputFileStream = new ifstream(path);
 	if (!pInputFileStream->is_open())
 		cout << "\ncannot open " << path << " for input." << endl;
-	else 
+	else
 		managedToOpen = true;
 }
 
@@ -110,7 +110,7 @@ FileLinesFormat LoadAction::getFigureFromLine(float firstWordInLine) {
 }
 
 bool LoadAction::validateWord(float currentWord, WordType correctType) {
-	if (correctType == RESIZE_FACTOR) {
+	/*if (correctType == RESIZE_FACTOR) {
 		if (currentWord == 0.25 |
 			currentWord == 0.5 |
 			currentWord == 1 |
@@ -121,10 +121,10 @@ bool LoadAction::validateWord(float currentWord, WordType correctType) {
 			cout << "ERROR : RESIZE_FACTOR isn't supported.";
 			return false;
 		}
-	}
+	}*/
 
 
-	int min, max;
+	float min, max;
 	getWordRangeExclusive(correctType, min, max);
 	
 	if (currentWord > min && currentWord < max)
@@ -177,7 +177,7 @@ void LoadAction::setLineDescription(FileLinesFormat lineFormat, const WordType*&
 	}
 }
 
-void LoadAction::getWordRangeExclusive(WordType type, int& min, int& max) {
+void LoadAction::getWordRangeExclusive(WordType type, float& min, float& max) {
 	if (type == INTEGER) {
 		min = -1; // Exclusive
 		max = INT16_MAX + 1;
@@ -193,6 +193,10 @@ void LoadAction::getWordRangeExclusive(WordType type, int& min, int& max) {
 	else if (type == MAXFIGNUM) {
 		min = 0;
 		max = MAXFIGCOUNT + 1;
+	}
+	else if (type == RESIZE_FACTOR) {
+		min = 0;
+		max = FLT_MAX;
 	}
 }
 
@@ -223,6 +227,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		/// TODO : Add Resize Factor
 
 		CLine* line = new CLine(p1, p2, info);
+		line->setFactor(figureWords[7]);
 		loadedFigures[currentLoadedFiguresIndex] = line;
 	}
 	else if (figureWords[0] == KEYWORD_RECT) {
@@ -237,6 +242,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		/// TODO : Add Resize Factor
 
 		CRectangle* rect = new CRectangle(p1, p2, info);
+		rect->setFactor(figureWords[8]);
 		loadedFigures[currentLoadedFiguresIndex] = rect;
 	}
 	else if (figureWords[0] == KEYWORD_TRI) {
@@ -254,6 +260,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		/// TODO : Add Resize Factor
 
 		CTriangle* tri = new CTriangle(p1, p2, p3, info);
+		tri->setFactor(figureWords[10]);
 		loadedFigures[currentLoadedFiguresIndex] = tri;
 	}
 	else if (figureWords[0] == KEYWORD_RHOMBUS) {
@@ -278,6 +285,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		/// TODO : Add Resize Factor
 
 		CCircle* circ = new CCircle(p1, info);
+		circ->setFactor(figureWords[6]);
 		loadedFigures[currentLoadedFiguresIndex] = circ;
 	}
 	else if (figureWords[0] == KEYWORD_ELLIPSE) {
@@ -290,6 +298,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		/// TODO : Add Resize Factor
 
 		CRhombus* elli = new CRhombus(p1, info);
+		elli->setFactor(figureWords[6]);
 		loadedFigures[currentLoadedFiguresIndex] = elli;
 	}
 	
@@ -327,6 +336,11 @@ bool LoadAction::readAndValidateFile(CFigure** loadedFigures) {
 	int currentLoadedFiguresIndex = 0;
 
 	float* figureWords = NULL;
+
+	if (SaveLoadUtility::is_empty(pInputFileStream)) {
+		cout << endl << "ERROR : Empty file.";
+		INVALIDFILE(pOut, figureWords);
+	}
 
 	for (lineCounter = 0; lineCounter < maxLines; lineCounter++) {
 		if (!getline(*pInputFileStream, line)) break;

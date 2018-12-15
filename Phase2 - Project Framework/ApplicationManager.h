@@ -55,6 +55,7 @@ public:
 	void removeSelection();
 	void deleteSelectedFigure();
 	void playSound(Action* pAct);
+	bool aFigureMustBeSelectedFirst(CFigure *& selectedFigure);
 
 
 	// -- Interface Management Functions

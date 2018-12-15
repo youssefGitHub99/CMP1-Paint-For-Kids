@@ -12,15 +12,11 @@ ChangeColorAction::ChangeColorAction(ApplicationManager * pApp, int mode, int mc
 }
 
 void ChangeColorAction::ReadActionParameters() {}
+
 void ChangeColorAction::Execute() {
-	CFigure * c = pManager->GetSelectedFigure();
-	if (c == NULL) 
-	{
-		Output* pOut = pManager->GetOutput();
-		pOut->PrintMessage("please select a figure first ");
-	}
-	else 
-	{
+	CFigure * c;
+	if (pManager->aFigureMustBeSelectedFirst(c)) {
+
 		Output* pOut = pManager->GetOutput();
 		
 		if (mode == 0) 

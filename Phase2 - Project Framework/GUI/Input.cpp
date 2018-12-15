@@ -180,6 +180,7 @@ ActionType Input::GetUserAction() const
 			{
 				case ITM_RESIZE_HALF:	  return RESIZE_HALF;
 				case ITM_RESIZE_QUARTER:  return RESIZE_QUARTER;
+				case ITM_RESIZE_ORIGINAL: return RESIZE_ORIGINAL;
 				case ITM_RESIZE_DOUBLE:   return RESIZE_DOUBLE;
 				case ITM_RESIZE_FORTIMES: return RESIZE_FOUR_TIMES;
 				case ITM_RESIZE_BACK:	  return BACK_TO_DRAW;

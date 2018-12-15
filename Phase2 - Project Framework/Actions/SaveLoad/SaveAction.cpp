@@ -58,6 +58,8 @@ void SaveAction::Execute() {
 	ReadActionParameters();
 
 	if (managedToOpen) {
+		pManager->removeSelection();
+
 		/// Draw color and fill color.
 		ReservedKeywords drawColor = SaveLoadUtility::colorIntoKeyword(pManager->GetOutput()->getCrntDrawColor());
 		ReservedKeywords fillColor = SaveLoadUtility::colorIntoKeyword(pManager->GetOutput()->getCrntFillColor());
@@ -78,12 +80,12 @@ void SaveAction::Execute() {
 			CCircle*	circ = dynamic_cast<CCircle*>(figure);
 			CEllipse*	elli = dynamic_cast<CEllipse*>(figure);
 
-			if (line != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_LINE))	*pOutputFileStream << *line << ' ' << RESIZEFACTOR << '\n';
-			else if (rect != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RECT))	*pOutputFileStream << *rect << ' ' << RESIZEFACTOR << '\n';
-			else if (tri != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_TRI))	*pOutputFileStream << *tri << ' ' << RESIZEFACTOR << '\n';
-			else if (rho != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RHOMBUS))*pOutputFileStream << *rho << ' ' << RESIZEFACTOR << '\n';
-			else if (circ != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_CIRCLE))	*pOutputFileStream << *circ << ' ' << RESIZEFACTOR << '\n';
-			else if (elli != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_ELLIPSE))*pOutputFileStream << *elli << ' ' << RESIZEFACTOR << '\n';
+			if (line != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_LINE))	*pOutputFileStream << *line << '\n';
+			else if (rect != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RECT))	*pOutputFileStream << *rect << '\n';
+			else if (tri != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_TRI))	*pOutputFileStream << *tri << '\n';
+			else if (rho != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_RHOMBUS))*pOutputFileStream << *rho << '\n';
+			else if (circ != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_CIRCLE))	*pOutputFileStream << *circ << '\n';
+			else if (elli != NULL & (saveType == SAVE_TYPE_ALL | saveType == SAVE_TYPE_ELLIPSE))*pOutputFileStream << *elli << '\n';
 			/// The resize Factor (To be handled later)
 
 		}
@@ -127,7 +129,7 @@ bool SaveAction::dontSaveCuzThereIsNoFigures() {
 ofstream& operator<<(ofstream& output, CLine& line) {
 	Point p1;
 	Point p2;
-	line.getPoints(p1, p2);
+	line.getOriginalPoints(p1, p2);
 
 	ReservedKeywords c = SaveLoadUtility::colorIntoKeyword(line.getGfxInfo().DrawClr);
 
@@ -138,15 +140,15 @@ ofstream& operator<<(ofstream& output, CLine& line) {
 		<< p1.y << ' '
 		<< p2.x << ' '
 		<< p2.y << ' '
-		<< c
-		;
+		<< c << ' '
+		<< line.getFactor();
 
 	return output;
 }
 
 ofstream& operator<<(ofstream& output, CRectangle& rect) {
 	Point p1, p2;
-	rect.getPoints(p1, p2);
+	rect.getOriginalPoints(p1, p2);
 
 	ReservedKeywords drawColor, fillColor;
 	SaveAction::colorsIntoKeywords(rect.getGfxInfo(), drawColor, fillColor);
@@ -159,15 +161,15 @@ ofstream& operator<<(ofstream& output, CRectangle& rect) {
 		<< p2.x << ' '
 		<< p2.y << ' '
 		<< drawColor << ' '
-		<< fillColor
-		;
+		<< fillColor << ' '
+		<< rect.getFactor();
 
 	return output;
 }
 
 ofstream& operator<<(ofstream& output, CTriangle& tri) {
 	Point p1, p2, p3;
-	tri.getPoints(p1, p2, p3);
+	tri.getOriginalPoints(p1, p2, p3);
 
 	ReservedKeywords drawColor, fillColor;
 	SaveAction::colorsIntoKeywords(tri.getGfxInfo(), drawColor, fillColor);
@@ -182,15 +184,15 @@ ofstream& operator<<(ofstream& output, CTriangle& tri) {
 		<< p3.x << ' '
 		<< p3.y << ' '
 		<< drawColor << ' '
-		<< fillColor
-		;
+		<< fillColor << ' '
+		<< tri.getFactor();
 
 	return output;
 }
 
 ofstream& operator<<(ofstream& output, CRhombus& rho) {
 	Point p1;
-	rho.getPoints(p1);
+	rho.getCenter(p1);
 
 	ReservedKeywords drawColor, fillColor;
 	SaveAction::colorsIntoKeywords(rho.getGfxInfo(), drawColor, fillColor);
@@ -201,15 +203,15 @@ ofstream& operator<<(ofstream& output, CRhombus& rho) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor
-		;
+		<< fillColor << ' '
+		<< rho.getFactor();
 
 	return output;
 }
 
 ofstream& operator<<(ofstream& output, CCircle& circ) {
 	Point p1;
-	circ.getPoints(p1);
+	circ.getCenter(p1);
 
 	ReservedKeywords drawColor, fillColor;
 	SaveAction::colorsIntoKeywords(circ.getGfxInfo(), drawColor, fillColor);
@@ -220,15 +222,15 @@ ofstream& operator<<(ofstream& output, CCircle& circ) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor
-		;
+		<< fillColor << ' '
+		<< circ.getFactor();
 
 	return output;
 }
 
 ofstream& operator<<(ofstream& output, CEllipse& elli) {
 	Point p1;
-	elli.getPoints(p1);
+	elli.getCenter(p1);
 
 	ReservedKeywords drawColor, fillColor;
 	SaveAction::colorsIntoKeywords(elli.getGfxInfo(), drawColor, fillColor);
@@ -239,8 +241,8 @@ ofstream& operator<<(ofstream& output, CEllipse& elli) {
 		<< p1.x << ' '
 		<< p1.y << ' '
 		<< drawColor << ' '
-		<< fillColor
-		;
+		<< fillColor << ' '
+		<< elli.getFactor();
 
 	return output;
 }
