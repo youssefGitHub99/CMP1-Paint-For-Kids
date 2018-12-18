@@ -101,6 +101,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case BACK_TO_DRAW:
 		pOut->CreateDrawToolBar();
 		UI.InterfaceMode = MODE_DRAW;
+		UI.ColorInterface =DRAWING_COLOR;
 		break;
 	case DRAW_LINE:
 		///create AddLineAction here
@@ -144,7 +145,6 @@ void ApplicationManager::removeSelection() {
 	Output * pOut = GetOutput();
 	for (int i = 0; i<FigCount; i++)
 		if (FigList[i]->IsSelected()) {
-			FigList[i]->ChngDrawClr(pOut->getCrntDrawColor());
 			FigList[i]->SetSelected(false);
 		}
 }
@@ -197,7 +197,15 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	click.y = y;
 	
 	for (int i = FigCount; i >= 0; i--) {
-		if (dynamic_cast<CLine *>(FigList[i]) != NULL){}
+		if (dynamic_cast<CLine *>(FigList[i]) != NULL){
+			Point p1, p2;
+			dynamic_cast<CLine *>(FigList[i])->getPoints(p1,p2);
+			float d1 = getDistance(click,p1);
+			float d2 = getDistance(click, p2);
+			float d = getDistance(p1,p2);
+			if ((d1 + d2) <= d*1.0001)
+				return FigList[i];
+		}
 		
 		
 		else if (dynamic_cast<CCircle *>(FigList[i]) != NULL) {

@@ -42,7 +42,7 @@ void SelectItemAction::Execute() {
 	else {
 		pManager->removeSelection();
 		c->SetSelected(true);
-		c->ChngDrawClr(MAGENTA);
+		//c->ChngDrawClr(MAGENTA);
 		if (dynamic_cast<CLine *>(c) != NULL) {
 			pOut->PrintMessage("A Line");
 		}

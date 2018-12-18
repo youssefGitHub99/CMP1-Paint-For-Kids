@@ -11,7 +11,7 @@ CRhombus::CRhombus(Point center,GfxInfo figGFXInfo):CFigure(figGFXInfo)
 int CRhombus::getFactor() { return factor; }
 void CRhombus::setFactor(int f) { factor = f; }
 void CRhombus::Draw(Output * pOut)const {
-	pOut->DrawRh(center, FigGfxInfo, false, factor);
+	pOut->DrawRh(center, FigGfxInfo,Selected, factor);
 
 
 }

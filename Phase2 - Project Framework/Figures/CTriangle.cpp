@@ -13,6 +13,6 @@ void CTriangle::getPoints(Point & p1, Point & p2,Point & p3)const {
 }
 void CTriangle::Draw(Output * pOut)const {
 	
-	pOut->DrawTri(p1, p2, p3, FigGfxInfo, false);
+	pOut->DrawTri(p1, p2, p3, FigGfxInfo,Selected);
 
 }
