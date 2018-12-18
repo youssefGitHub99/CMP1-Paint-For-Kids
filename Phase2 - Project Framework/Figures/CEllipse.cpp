@@ -11,7 +11,7 @@ void CEllipse::setFactor(int f) { factor = f; }
 
 
 void CEllipse::Draw(Output * pOut)const{
-	pOut->DrawEl(center, FigGfxInfo, false, factor);
+	pOut->DrawEl(center, FigGfxInfo, Selected, factor);
 }
 void CEllipse::getPoints(Point & p1)const {
 	p1 = center;

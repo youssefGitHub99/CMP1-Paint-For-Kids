@@ -211,9 +211,9 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		else if (dynamic_cast<CCircle *>(FigList[i]) != NULL) {
 			Point center;
 			dynamic_cast<CCircle *>(FigList[i])->getPoints(center);
-			int factor =dynamic_cast<CCircle *>(FigList[i])->getFactor();
+			int factor =dynamic_cast<CCircle *>(FigList[i])->getFactor();//change to new factor
 			float D = getDistance(click,center);
-			if (D > 16 * factor)
+			if (D > 16 * factor)//change to new factor
 				continue;
 			else
 				return FigList[i];
@@ -263,13 +263,13 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 			dynamic_cast<CRhombus *>(FigList[i])->getPoints(center);
 			Point p1, p2, p3, p4;
 			p1.x = center.x;
-			p1.y = center.y + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p1.y = center.y + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();//change to new factor
 			p3.x = center.x;
-			p3.y = center.y - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p3.y = center.y - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();//change to new factor
 			p2.y = center.y;
-			p2.x = center.x + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p2.x = center.x + (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();//change to new factor
 			p4.y = center.y;
-			p4.x = center.x - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
+			p4.x = center.x - (int)16 * dynamic_cast<CRhombus *>(FigList[i])->getFactor();//change to new factor
 			
 			bool inside1 = false;
 			bool inside2 = false;
@@ -297,11 +297,18 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 
 
 		}
-		
-		
-		
-		//else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {}
-
+		else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {
+			Point center;
+			dynamic_cast<CEllipse *>(FigList[i])->getPoints(center);
+			int a = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 32;
+			int b = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 16;
+			int p = (pow((center.x - click.x ), 2) / pow(a, 2)) + (pow((center.y - click.y), 2) / pow(b, 2));
+			if (p < 1) {
+				return FigList[i];
+			}
+			else
+				continue;
+		}
 	
 	}
 
