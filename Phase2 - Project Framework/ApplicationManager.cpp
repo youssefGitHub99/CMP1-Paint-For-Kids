@@ -167,15 +167,19 @@ void ApplicationManager::deleteSelectedFigure() {
 	else {
 		Output * pOut = GetOutput();
 		int id = c->getId();
-		delete FigList[id];
-		FigList[id] = FigList[FigCount-1];
+		for (int i = id; i < FigCount-1;i++) {
+			FigList[i] = FigList[i+1];
+		}
 		FigList[FigCount - 1] = NULL;
 		FigCount--;
+		for (int i = 0; i < FigCount; i++) {
+			FigList[i]->setId(i);
+		}
 		pOut->ClearDrawArea();
 		UpdateInterface();
-
 	}
 }
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 float TriangleArea(float x1, float y1, float x2, float y2, float x3, float y3) {
