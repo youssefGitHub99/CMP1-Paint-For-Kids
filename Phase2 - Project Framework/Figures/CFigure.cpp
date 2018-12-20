@@ -10,9 +10,18 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 
 int CFigure::getId() const { return ID; }
 
+float CFigure::getDistance(Point p1, Point p2) {
+	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+}
+
 void CFigure::SetSelected(bool s)
 {
 	Selected = s;
+}
+
+
+float CFigure::TriangleArea(float x1, float y1, float x2, float y2, float x3, float y3) {
+	return abs((x1*(y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
 }
 
 bool CFigure::IsSelected() const

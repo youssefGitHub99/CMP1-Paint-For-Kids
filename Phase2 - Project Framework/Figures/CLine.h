@@ -11,4 +11,5 @@ public :
 	void getTranslatedPoints(Point & p1, Point & p2)const;
 	void getOriginalPoints(Point & p1, Point & p2)const;
 	virtual void Draw(Output* pOut) const;
+	virtual bool isInside(Point click);
 };

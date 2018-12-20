@@ -29,3 +29,12 @@ void CLine::Draw(Output* pOut) const
 	pOut->DrawLi(corner1, corner2, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(corner1);
 }
+
+bool CLine::isInside(Point click) {
+	Point p1, p2;
+	float d1 = getDistance(click, p1);
+	float d2 = getDistance(click, p2);
+	float d = getDistance(p1, p2);
+	if ((d1 + d2) <= d * 1.0001)
+		return true;
+}
