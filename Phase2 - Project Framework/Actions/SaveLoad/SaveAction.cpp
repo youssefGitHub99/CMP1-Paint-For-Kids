@@ -1,5 +1,4 @@
 #include "SaveAction.h"
-#define RESIZEFACTOR 1
 
 SaveAction::SaveAction(ApplicationManager * pApp, SaveType saveType) : Action(pApp), saveType(saveType)
 {
