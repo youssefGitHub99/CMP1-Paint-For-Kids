@@ -129,6 +129,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case BACK_TO_DRAW:
 		pOut->CreateDrawToolBar();
 		UI.InterfaceMode = MODE_DRAW;
+		UI.ColorInterface =DRAWING_COLOR;
 		break;
 	case RESIZE_SHAPE:
 		pOut->CreateResizeToolBar();
@@ -213,7 +214,6 @@ void ApplicationManager::removeSelection() {
 	Output * pOut = GetOutput();
 	for (int i = 0; i<FigCount; i++)
 		if (FigList[i]->IsSelected()) {
-			FigList[i]->ChngDrawClr(pOut->getCrntDrawColor());
 			FigList[i]->SetSelected(false);
 		}
 }
@@ -236,13 +236,16 @@ void ApplicationManager::deleteSelectedFigure() {
 	else {
 		Output * pOut = GetOutput();
 		int id = c->getId();
-		delete FigList[id];
-		FigList[id] = FigList[FigCount-1];
+		for (int i = id; i < FigCount-1;i++) {
+			FigList[i] = FigList[i+1];
+		}
 		FigList[FigCount - 1] = NULL;
 		FigCount--;
+		for (int i = 0; i < FigCount; i++) {
+			FigList[i]->setId(i);
+		}
 		pOut->ClearDrawArea();
 		UpdateInterface();
-
 	}
 }
 
@@ -284,7 +287,15 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	click.y = y;
 	
 	for (int i = FigCount; i >= 0; i--) {
-		if (dynamic_cast<CLine *>(FigList[i]) != NULL){}
+		if (dynamic_cast<CLine *>(FigList[i]) != NULL){
+			Point p1, p2;
+			dynamic_cast<CLine *>(FigList[i])->getTranslatedPoints(p1,p2);
+			float d1 = getDistance(click,p1);
+			float d2 = getDistance(click, p2);
+			float d = getDistance(p1,p2);
+			if ((d1 + d2) <= d*1.0001)
+				return FigList[i];
+		}
 		
 		
 		else if (dynamic_cast<CCircle *>(FigList[i]) != NULL) {
@@ -376,11 +387,18 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 
 
 		}
-		
-		
-		
-		//else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {}
-
+		else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {
+			Point center;
+			dynamic_cast<CEllipse *>(FigList[i])->getCenter(center);
+			int a = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 32;
+			int b = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 16;
+			float p = (pow((center.x - click.x ), 2) / pow(a, 2)) + (pow((center.y - click.y), 2) / pow(b, 2));
+			if (p <= 1) {
+				return FigList[i];
+			}
+			else
+				continue;
+		}
 	
 	}
 

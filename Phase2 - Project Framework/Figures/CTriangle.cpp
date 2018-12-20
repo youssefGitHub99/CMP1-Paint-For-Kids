@@ -36,6 +36,6 @@ void CTriangle::getOriginalPoints(Point & p1, Point & p2, Point & p3) const
 }
 void CTriangle::Draw(Output * pOut)const {
 	
-	pOut->DrawTri(p1, p2, p3, FigGfxInfo, false, factor);
+	pOut->DrawTri(p1, p2, p3, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(p1);
 }

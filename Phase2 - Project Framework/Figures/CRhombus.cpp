@@ -6,7 +6,7 @@ CRhombus::CRhombus(Point center, GfxInfo figGFXInfo) :CFigure(figGFXInfo)
 }
 
 void CRhombus::Draw(Output * pOut)const {
-	pOut->DrawRh(center, FigGfxInfo, false, factor);
+	pOut->DrawRh(center, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(center);
 
 }

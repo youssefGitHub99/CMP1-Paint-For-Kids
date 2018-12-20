@@ -6,7 +6,7 @@ CEllipse::CEllipse(Point center, GfxInfo FigGFXInfo) :CFigure(FigGFXInfo) {
 
 
 void CEllipse::Draw(Output * pOut) const {
-	pOut->DrawEl(center, FigGfxInfo, false, factor);
+	pOut->DrawEl(center, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(center);
 }
 
