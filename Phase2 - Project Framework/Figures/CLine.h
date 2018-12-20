@@ -3,8 +3,8 @@
 
 class CLine :public CFigure {
 	
-	Point corner1;
-	Point corner2;
+	Point point1;
+	Point point2;
 
 public :
 	CLine(Point, Point, GfxInfo FigureGfxInfo);
