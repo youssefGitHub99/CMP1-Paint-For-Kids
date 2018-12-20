@@ -10,8 +10,9 @@ private:
 	Point Corner2;
 public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
+	void getTranslatedPoints(Point & p1, Point & p2)const ;
+	void getOriginalPoints(Point & p1, Point & p2)const ;
 	virtual void Draw(Output* pOut) const;
-	void getPoints(Point & p1, Point & p2)const ;
 };
 
 #endif

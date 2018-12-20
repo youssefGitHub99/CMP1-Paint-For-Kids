@@ -12,15 +12,11 @@ ChangeColorAction::ChangeColorAction(ApplicationManager * pApp, int mode, int mc
 }
 
 void ChangeColorAction::ReadActionParameters() {}
+
 void ChangeColorAction::Execute() {
-	CFigure * c = pManager->GetSelectedFigure();
-	if (c == NULL) 
-	{
-		Output* pOut = pManager->GetOutput();
-		pOut->PrintMessage("please select a figure first ");
-	}
-	else 
-	{
+	CFigure * c;
+	if (pManager->aFigureMustBeSelectedFirst(c)) {
+
 		Output* pOut = pManager->GetOutput();
 		
 		if (mode == 0) 
@@ -29,18 +25,23 @@ void ChangeColorAction::Execute() {
 			{
 			case 0:
 				c->ChngFillClr(BLACK);
+				soundPath = "Sounds\\Color_Black.wav";
 				break;
 			case 1:
 				c->ChngFillClr(RED);
+				soundPath = "Sounds\\Color_Red.wav";
 				break;
 			case 2:
 				c->ChngFillClr(GREEN);
+				soundPath = "Sounds\\Color_Green.wav";
 				break;
 			case 3:
 				c->ChngFillClr(WHITE);
+				soundPath = "Sounds\\Color_White.wav";
 				break;
 			case 4:
 				c->ChngFillClr(BLUE);
+				soundPath = "Sounds\\Color_Blue.wav";
 				break;
 			default:
 				break;
@@ -53,18 +54,23 @@ void ChangeColorAction::Execute() {
 			case 0:
 				
 				c->ChngDrawClr(BLACK);
+				soundPath = "Sounds\\Color_Black.wav";
 				break;
 			case 1:
 				c->ChngDrawClr(RED);
+				soundPath = "Sounds\\Color_Red.wav";
 				break;
 			case 2:
 				c->ChngDrawClr(GREEN);
+				soundPath = "Sounds\\Color_Green.wav";
 				break;
 			case 3:
 				c->ChngDrawClr(WHITE);
+				soundPath = "Sounds\\Color_White.wav";
 				break;
 			case 4:
 				c->ChngDrawClr(BLUE);
+				soundPath = "Sounds\\Color_Blue.wav";
 				break;
 			default:
 				break;

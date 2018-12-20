@@ -8,6 +8,7 @@
 
 AddEllipseAction::AddEllipseAction(ApplicationManager * pApp) :Action(pApp)
 {
+	soundPath = "Sounds\\Figure_Oval.wav";
 }
 
 void AddEllipseAction::ReadActionParameters() {

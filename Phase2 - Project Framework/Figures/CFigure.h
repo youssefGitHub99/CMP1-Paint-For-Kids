@@ -1,6 +1,6 @@
 #ifndef CFIGURE_H
 #define CFIGURE_H
-
+#pragma once
 #include "..\defs.h"
 #include "..\GUI\Output.h"
 
@@ -12,6 +12,8 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	
+	double factor;
+
 	/// Add more parameters if needed.
 
 public:
@@ -20,8 +22,12 @@ public:
 	void setId(int id);
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+	GfxInfo getGfxInfo() const;
 
-	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
+	double getFactor();
+	void setFactor(double factor);
+
+	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
 	
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
@@ -31,10 +37,10 @@ public:
 
 	///Decide the parameters that you should pass to each function	
 
-
+	
 	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
-
+	
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 };
 

@@ -3,13 +3,10 @@
 class CRhombus:public CFigure 
 {
 	Point center;
-	int factor;
 public:
-	int getFactor();
-	void setFactor(int);
 	CRhombus(Point center,GfxInfo figGFXInfo);
+	void getCenter(Point & p1)const;
 	virtual void Draw(Output * pOut)const;
-	void getPoints(Point & p1)const;
 	~CRhombus();
 };
 

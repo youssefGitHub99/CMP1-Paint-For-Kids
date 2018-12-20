@@ -3,6 +3,14 @@
 
 #include "CMUgraphicsLib\CMUgraphics.h"
 
+#define INITIALFACTOR 4
+
+#define POINTFACTORTRANSLATED_X(p1_x, p2_x, factor) p1_x + (p2_x - p1_x) * factor
+#define POINTFACTORTRANSLATED_Y(p1_y, p2_y, factor) p1_y + (p2_y - p1_y) * factor
+
+#define POINTFACTORTRANSLATED_X_SQRT(p1_x, p2_x, factor) POINTFACTORTRANSLATED_X(p1_x, p2_x, sqrt(factor))
+#define POINTFACTORTRANSLATED_Y_SQRT(p1_y, p2_y, factor) POINTFACTORTRANSLATED_Y(p1_y, p2_y, sqrt(factor))
+
 //This file contains some global constants and definitions to be used in the project.
 enum ActionType //The actions supported (you can add more if needed)
 {
@@ -39,22 +47,23 @@ enum ActionType //The actions supported (you can add more if needed)
 	SEND_BACK,
 	BRING_FRONT,
 	RESIZE_QUARTER,
-	RESIZE_HALF,
-	RESIZE_DOUBLE,
-	RESIZE_FOUR_TIMES,
+	RESIZE_ORIGINAL, 
+	RESIZE_HALF, 
+	RESIZE_DOUBLE, 
+	RESIZE_FOUR_TIMES, 
 	
-	DEL,			//Delete a figure(s)
-	SAVE,			//Save the whole graph to a file
-	SAVE_BY_TYPE,	//Save the all the figures that have a specific type
-	LOAD,			//Load a graph from a file
-	EXIT,			//Exit the application
-
-	DRAWING_AREA,	//A click on the drawing area
-	STATUS,			//A click on the status bar
-	EMPTY,			//A click on empty place in the toolbar
-
-	TO_DRAW,		//Switch interface to Draw mode
-	TO_PLAY,			//Switch interface to Play mode
+	DEL,			// Delete a figure(s)
+	SAVE,			// Save the whole graph to a file
+	SAVE_BY_TYPE,	// Save the all the figures that have a specific type
+	LOAD,			// Load a graph from a file
+	EXIT,			// Exit the application
+					   
+	DRAWING_AREA,	// A click on the drawing area
+	STATUS,			// A click on the status bar
+	EMPTY,			// A click on empty place in the toolbar
+					   
+	TO_DRAW,		// Switch interface to Draw mode
+	TO_PLAY,		// Switch interface to Play mode
 
 	///TODO: Add more action types (if needed)
 };

@@ -11,16 +11,15 @@ enum GUI_MODE	//Graphical user interface mode (Toolbars)
 {
 	MODE_DRAW,	//Drawing mode (startup mode)
 	MODE_PLAY,  //Playing mode
-	COLOR,
-	RESIZE,
-	SAVE_BY_TYBE_WINDOW
+	COLOR_TOOLBAR,
+	RESIZE_TOOLBAR,
+	SAVE_BY_TYBE_TOOLBAR
 };
 
 enum COLOR_MODE {
 	FILL_COLOR,
 	DRAWING_COLOR
 };
-
 
 enum DrawMenuItem //The items of the Draw menu (you should add more items)
 {
@@ -81,6 +80,7 @@ enum ColorItem {
 enum ResizeItem {
 	ITM_RESIZE_QUARTER,
 	ITM_RESIZE_HALF,
+	ITM_RESIZE_ORIGINAL, 
 	ITM_RESIZE_DOUBLE,
 	ITM_RESIZE_FORTIMES,
 	ITM_RESIZE_BACK,
