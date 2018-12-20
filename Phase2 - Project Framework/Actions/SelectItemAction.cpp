@@ -46,7 +46,7 @@ void SelectItemAction::Execute() {
 			if (dynamic_cast<CLine *>(c) != NULL) {
 				Point p1,p2;
 				
-				dynamic_cast<CLine *>(c)->getPoints(p1,p2);
+				dynamic_cast<CLine *>(c)->getTranslatedPoints(p1,p2);
 				int ID = c->getId();
 				string m = "a Line , id : " + to_string(ID) + " , first point : (" + to_string(p1.x) + "," + to_string(p1.y) + ")"
 					+ " , Second point : (" + to_string(p2.x) + "," + to_string(p2.y) + ")";
@@ -54,7 +54,7 @@ void SelectItemAction::Execute() {
 			}
 			else if (dynamic_cast<CCircle *>(c) != NULL) {
 				Point center;
-				dynamic_cast<CCircle *>(c)->getPoints(center);
+				dynamic_cast<CCircle *>(c)->getCenter(center);
 				int ID = c->getId();
 				string m = "a Circle , id : "+ to_string(ID) + " , center at : (" + to_string(center.x) + "," + to_string(center.y) + ")";
 				pOut->PrintMessage(m);
@@ -63,7 +63,7 @@ void SelectItemAction::Execute() {
 				int ID = c->getId();
 				int width,height;
 				Point p1, p2;
-				dynamic_cast<CRectangle *>(c)->getPoints(p1,p2);
+				dynamic_cast<CRectangle *>(c)->getTranslatedPoints(p1,p2);
 				width = abs(p1.x - p2.x);
 				height = abs(p1.y - p2.y);
 				string m = "a Circle , id : " + to_string(ID) + " , Width : " + to_string(width) + " , height :"+ to_string(height)
@@ -75,7 +75,7 @@ void SelectItemAction::Execute() {
 			}
 			else if (dynamic_cast<CTriangle *>(c) != NULL) {
 				Point p1,p2,p3;
-				dynamic_cast<CTriangle *>(c)->getPoints(p1,p2,p3);
+				dynamic_cast<CTriangle *>(c)->getTranslatedPoints(p1,p2,p3);
 				int ID = c->getId();
 				string m = "a Triangle , id : " + to_string(ID)
 					+ " , First point : (" + to_string(p1.x) + "," + to_string(p1.y) + ")"
@@ -86,7 +86,7 @@ void SelectItemAction::Execute() {
 			}
 			else if (dynamic_cast<CRhombus *>(c) != NULL) {
 				Point center;
-				dynamic_cast<CRhombus *>(c)->getPoints(center);
+				dynamic_cast<CRhombus *>(c)->getCenter(center);
 				int ID = c->getId();
 				string m = "a Rhombus , id : " + to_string(ID) + " , center at : (" + to_string(center.x) + "," + to_string(center.y) + ")";
 				pOut->PrintMessage(m);
@@ -94,7 +94,7 @@ void SelectItemAction::Execute() {
 			}
 			else if (dynamic_cast<CEllipse *>(c) != NULL) {
 				Point center;
-				dynamic_cast<CEllipse *>(c)->getPoints(center);
+				dynamic_cast<CEllipse *>(c)->getCenter(center);
 				int ID = c->getId();
 				string m = "an Ellipse , id : " + to_string(ID) + " , center at : (" + to_string(center.x) + "," + to_string(center.y) + ")";
 				pOut->PrintMessage(m);

@@ -153,7 +153,7 @@ ActionType Input::GetUserAction() const
 
 		//return TO_PLAY;	//just for now. This should be updated
 	}
-	else if (UI.InterfaceMode == COLOR) {
+	else if (UI.InterfaceMode == COLOR_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
@@ -171,7 +171,7 @@ ActionType Input::GetUserAction() const
 
 		}
 	}
-	else if (UI.InterfaceMode == RESIZE) {
+	else if (UI.InterfaceMode == RESIZE_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
@@ -180,6 +180,7 @@ ActionType Input::GetUserAction() const
 			{
 				case ITM_RESIZE_HALF:	  return RESIZE_HALF;
 				case ITM_RESIZE_QUARTER:  return RESIZE_QUARTER;
+				case ITM_RESIZE_ORIGINAL: return RESIZE_ORIGINAL;
 				case ITM_RESIZE_DOUBLE:   return RESIZE_DOUBLE;
 				case ITM_RESIZE_FORTIMES: return RESIZE_FOUR_TIMES;
 				case ITM_RESIZE_BACK:	  return BACK_TO_DRAW;
@@ -188,7 +189,7 @@ ActionType Input::GetUserAction() const
 
 		}
 	}
-	else if (UI.InterfaceMode == SAVE_BY_TYBE_WINDOW) {
+	else if (UI.InterfaceMode == SAVE_BY_TYBE_TOOLBAR) {
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
