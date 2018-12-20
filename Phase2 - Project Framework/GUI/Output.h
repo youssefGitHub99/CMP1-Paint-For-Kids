@@ -40,12 +40,13 @@ public:
 	void ClearDrawArea() const;	//Clears the drawing area
 	
 	// -- Figures Drawing functions
-	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
-	void DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected=false) const;  //Draw a line
-	void DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected=false) const;  //Draw a triangle
+	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false, double factor = 1) const;  //Draw a rectangle
+	void DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected=false, double factor = 1) const;  //Draw a line
+	void DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected=false, double factor = 1) const;  //Draw a triangle
 	void DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected=false, double factor=1) const;  //Draw a rhombus
 	void DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected=false, double factor=1) const;  //Draw an ellipse
 	void DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected = false, double factor = 1) const;
+	void DrawOrigin(Point p);
 	///Make similar functions for drawing all other figure types.
 	
 	void PrintMessage(string msg) const;	//Print a message on Status bar

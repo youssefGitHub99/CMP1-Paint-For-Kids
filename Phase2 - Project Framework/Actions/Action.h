@@ -12,6 +12,8 @@ class Action
 protected:
 	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
 
+	LPCSTR soundPath = NULL;
+
 public:
 
 	Action(ApplicationManager *pApp) { pManager = pApp; }	//constructor
@@ -22,6 +24,7 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute() = 0;
 
+	LPCSTR* getSoundPath() { return &soundPath; }
 };
 
 #endif

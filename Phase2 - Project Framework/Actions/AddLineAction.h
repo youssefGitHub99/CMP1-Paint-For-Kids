@@ -1,3 +1,4 @@
+#pragma once
 #include "Action.h"
 
 class AddLineAction :public Action {

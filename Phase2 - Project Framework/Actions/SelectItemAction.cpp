@@ -48,7 +48,7 @@ void SelectItemAction::Execute() {
 		}
 		else if (dynamic_cast<CCircle *>(c) != NULL) {
 			Point center;
-			dynamic_cast<CCircle *>(c)->getPoints(center);
+			dynamic_cast<CCircle *>(c)->getCenter(center);
 			int ID = c->getId();
 			//string m = "a Circle , id : "+ ID + " center at : (" + center.x + "," + center.y + ")";
 			pOut->PrintMessage("A Circle");
@@ -63,7 +63,7 @@ void SelectItemAction::Execute() {
 		}
 		else if (dynamic_cast<CRhombus *>(c) != NULL) {
 			Point center;
-			dynamic_cast<CRhombus *>(c)->getPoints(center);
+			dynamic_cast<CRhombus *>(c)->getCenter(center);
 			pOut->PrintMessage("A Rhombus");
 		
 		}
