@@ -390,8 +390,8 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {
 			Point center;
 			dynamic_cast<CEllipse *>(FigList[i])->getCenter(center);
-			int a = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 32;
-			int b = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 16;
+			int a = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 32 * INITIALFACTOR;
+			int b = dynamic_cast<CEllipse *>(FigList[i])->getFactor() * 16 * INITIALFACTOR;
 			float p = (pow((center.x - click.x ), 2) / pow(a, 2)) + (pow((center.y - click.y), 2) / pow(b, 2));
 			if (p <= 1) {
 				return FigList[i];
