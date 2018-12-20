@@ -286,7 +286,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	click.x = x;
 	click.y = y;
 	
-	for (int i = FigCount; i >= 0; i--) {
+	for (int i = FigCount-1; i >= 0; i--) {
 		if (dynamic_cast<CLine *>(FigList[i]) != NULL){
 			Point p1, p2;
 			dynamic_cast<CLine *>(FigList[i])->getTranslatedPoints(p1,p2);

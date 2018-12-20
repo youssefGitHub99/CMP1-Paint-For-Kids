@@ -82,6 +82,8 @@ void LoadAction::Execute() {
 			
 			cout << word << ' ';
 		}*/
+
+		pManager->GetOutput()->PrintMessage("File has been loaded.");
 	}
 
 	if (pInputFileStream != NULL) {				  
@@ -297,7 +299,7 @@ void LoadAction::translateFigureWords(const float* figureWords, CFigure** loaded
 		if (info.isFilled) info.FillClr = SaveLoadUtility::keywordIntoColor((ReservedKeywords) (int) figureWords[5]);;
 		/// TODO : Add Resize Factor
 
-		CRhombus* elli = new CRhombus(p1, info);
+		CEllipse* elli = new CEllipse(p1, info);
 		elli->setFactor(figureWords[6]);
 		loadedFigures[currentLoadedFiguresIndex] = elli;
 	}
@@ -319,6 +321,7 @@ void LoadAction::replaceOldFigsWithNew(CFigure** loadedFigures) {
 			pManager->AddFigure(loadedFig);
 	}
 	pManager->GetOutput()->ClearDrawArea();
+
 }
 
 bool LoadAction::readAndValidateFile(CFigure** loadedFigures) {	
