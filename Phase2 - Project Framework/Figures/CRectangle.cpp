@@ -29,3 +29,16 @@ void CRectangle::Draw(Output* pOut) const
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(Corner1);
 }
+
+bool CRectangle::isInside(Point click) {
+	Point p1;
+	Point p2;
+	p1 = Corner1;
+	p2 = Corner2;
+	if (click.x >= min(p1.x, p2.x) && click.x <= max(p1.x, p2.x) && click.y >= min(p1.y, p2.y) && click.y <= max(p1.y, p2.y))
+		return true;
+	else
+		return false;
+
+
+}

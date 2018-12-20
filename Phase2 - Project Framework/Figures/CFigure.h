@@ -14,7 +14,7 @@ protected:
 	
 	double factor;
 
-	/// Add more parameters if needed.
+	// Add more parameters if needed.
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
@@ -23,12 +23,13 @@ public:
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 	GfxInfo getGfxInfo() const;
-
+	float getDistance(Point , Point);
 	double getFactor();
 	void setFactor(double factor);
 
+	float TriangleArea(float x1, float y1, float x2, float y2, float x3, float y3);
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
-	
+	virtual bool isInside(Point click) = 0;
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 

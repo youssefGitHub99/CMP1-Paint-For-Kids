@@ -8,6 +8,6 @@ private :
 public:
 	CCircle(Point P1, GfxInfo FigureGfxInfo);
 	void getCenter(Point & p1) const;
-	void Draw(Output* pOut) const;
-
+	virtual void Draw(Output* pOut) const;
+	virtual bool isInside(Point click);
 };

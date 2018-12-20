@@ -9,7 +9,8 @@ public:
 	CTriangle(Point p1, Point p2, Point p3,GfxInfo figGFXInfo);
 	void getTranslatedPoints(Point & p1, Point & p2,Point & p3)const;
 	void getOriginalPoints(Point & p1, Point & p2,Point & p3)const;
-	void Draw(Output * pOut)const ;
+	virtual void Draw(Output * pOut)const ;
+	virtual bool isInside(Point click);
 
 };
 
