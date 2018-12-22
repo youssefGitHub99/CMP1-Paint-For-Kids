@@ -36,6 +36,20 @@ void CTriangle::getOriginalPoints(Point & p1, Point & p2, Point & p3) const
 }
 void CTriangle::Draw(Output * pOut)const {
 	
-	pOut->DrawTri(p1, p2, p3, FigGfxInfo, false, factor);
+	pOut->DrawTri(p1, p2, p3, FigGfxInfo, Selected, factor);
 	pOut->DrawOrigin(p1);
 }
+
+
+bool CTriangle::isInside(Point click) {
+	float A1 = TriangleArea(click.x, click.y, p1.x, p1.y, p2.x, p2.y);
+	float A2 = TriangleArea(click.x, click.y, p2.x, p2.y, p3.x, p3.y);
+	float A3 = TriangleArea(click.x, click.y, p1.x, p1.y, p3.x, p3.y);
+	float A = TriangleArea(p3.x, p3.y, p1.x, p1.y, p2.x, p2.y);
+	if (A == A1 + A2 + A3)
+		return true;
+	else
+		return false;
+}
+
+

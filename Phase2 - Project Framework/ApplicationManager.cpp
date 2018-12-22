@@ -129,6 +129,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case BACK_TO_DRAW:
 		pOut->CreateDrawToolBar();
 		UI.InterfaceMode = MODE_DRAW;
+		UI.ColorInterface =DRAWING_COLOR;
 		break;
 	case RESIZE_SHAPE:
 		pOut->CreateResizeToolBar();
@@ -213,7 +214,6 @@ void ApplicationManager::removeSelection() {
 	Output * pOut = GetOutput();
 	for (int i = 0; i<FigCount; i++)
 		if (FigList[i]->IsSelected()) {
-			FigList[i]->ChngDrawClr(pOut->getCrntDrawColor());
 			FigList[i]->SetSelected(false);
 		}
 }
@@ -236,13 +236,16 @@ void ApplicationManager::deleteSelectedFigure() {
 	else {
 		Output * pOut = GetOutput();
 		int id = c->getId();
-		delete FigList[id];
-		FigList[id] = FigList[FigCount-1];
+		for (int i = id; i < FigCount-1;i++) {
+			FigList[i] = FigList[i+1];
+		}
 		FigList[FigCount - 1] = NULL;
 		FigCount--;
+		for (int i = 0; i < FigCount; i++) {
+			FigList[i]->setId(i);
+		}
 		pOut->ClearDrawArea();
 		UpdateInterface();
-
 	}
 }
 
@@ -265,9 +268,6 @@ bool ApplicationManager::aFigureMustBeSelectedFirst(CFigure *& selectedFigure)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
-float TriangleArea(float x1, float y1, float x2, float y2, float x3, float y3) {
-	return abs((x1*(y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
-}
 
 
 float getDistance(Point p1, Point p2) {
@@ -283,105 +283,10 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	click.x = x;
 	click.y = y;
 	
-	for (int i = FigCount; i >= 0; i--) {
-		if (dynamic_cast<CLine *>(FigList[i]) != NULL){}
-		
-		
-		else if (dynamic_cast<CCircle *>(FigList[i]) != NULL) {
-			Point center;
-			dynamic_cast<CCircle *>(FigList[i])->getCenter(center);
-			int factor =dynamic_cast<CCircle *>(FigList[i])->getFactor();
-			float D = getDistance(click,center);
-			if (D > 16 * INITIALFACTOR * factor)
-				continue;
-			else
-				return FigList[i];
-			
-		}
-		
-		
-		else if (dynamic_cast<CRectangle *>(FigList[i]) != NULL) {
-			Point p1;
-			Point p2;
-			dynamic_cast<CRectangle *>(FigList[i])->getTranslatedPoints(p1, p2);
-			if (click.x >= min(p1.x, p2.x) && click.x <= max(p1.x, p2.x) && click.y >= min(p1.y, p2.y) && click.y <= max(p1.y, p2.y))
-				return FigList[i];
-			else
-				continue;
-		}
-		
-		
-		else if (dynamic_cast<CTriangle *>(FigList[i]) != NULL) {
-			Point p1;
-			Point p2;
-			Point p3;
-			dynamic_cast<CTriangle *>(FigList[i])->getTranslatedPoints(p1, p2, p3);
-			float D1, D2, D3;
-			D1 = getDistance(click, p1);
-			D2 = getDistance(click, p2);
-			D3 = getDistance(click, p3);
-			float L12,L13,L23;
-			L12 = getDistance(p1, p2);
-			L23 = getDistance(p2, p3);
-			L13 = getDistance(p3, p1);
-			
-
-			float A1 = TriangleArea(click.x ,click.y , p1.x ,p1.y ,p2.x ,p2.y);
-			float A2 = TriangleArea(click.x, click.y, p2.x, p2.y, p3.x, p3.y);
-			float A3 = TriangleArea(click.x, click.y, p1.x, p1.y, p3.x, p3.y);
-			float A = TriangleArea(p3.x, p3.y, p1.x, p1.y, p2.x, p2.y);
-			if (A == A1 + A2 + A3)
-				return FigList[i];
-			else
-				continue;
-		}
-		
-		
-		else if (dynamic_cast<CRhombus *>(FigList[i]) != NULL) {
-			Point center;
-			dynamic_cast<CRhombus *>(FigList[i])->getCenter(center);
-			Point p1, p2, p3, p4;
-			p1.x = center.x;
-			p1.y = center.y + (int)16 * INITIALFACTOR *dynamic_cast<CRhombus *>(FigList[i])->getFactor();
-			p3.x = center.x;
-			p3.y = center.y - (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
-			p2.y = center.y;
-			p2.x = center.x + (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
-			p4.y = center.y;
-			p4.x = center.x - (int)16 * INITIALFACTOR * dynamic_cast<CRhombus *>(FigList[i])->getFactor();
-			
-			bool inside1 = false;
-			bool inside2 = false;
-
-			float A1 = TriangleArea(click.x, click.y, p1.x, p1.y, p2.x, p2.y);
-			float A2 = TriangleArea(click.x, click.y, p2.x, p2.y, p4.x, p4.y);
-			float A3 = TriangleArea(click.x, click.y, p1.x, p1.y, p4.x, p4.y);
-			float A = TriangleArea(p4.x, p4.y, p1.x, p1.y, p2.x, p2.y);
-			if (A == A1 + A2 + A3)
-				inside1 = true;
-			
-			A1 = TriangleArea(click.x, click.y, p4.x, p4.y, p2.x, p2.y);
-			A2 = TriangleArea(click.x, click.y, p2.x, p2.y, p3.x, p3.y);
-			A3 = TriangleArea(click.x, click.y, p4.x, p4.y, p3.x, p3.y);
-			A = TriangleArea(p3.x, p3.y, p4.x, p4.y, p2.x, p2.y);
-			if (A == A1 + A2 + A3)
-				inside2 = true;
-			
-
-			if (inside1 || inside2)
-				return FigList[i];
-			else
-				continue;
-
-
-
-		}
-		
-		
-		
-		//else if (dynamic_cast<CEllipse *>(FigList[i]) != NULL) {}
-
-	
+	for (int i = FigCount-1; i >= 0; i--) {
+		bool check = FigList[i]->isInside(click);
+		if (check)
+			return FigList[i];
 	}
 
 
@@ -403,6 +308,17 @@ void ApplicationManager::UpdateInterface() const
 {
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+
+	/*if (UI.InterfaceMode == MODE_DRAW)
+		pOut->CreateDrawToolBar();
+	else if (UI.InterfaceMode == COLOR_TOOLBAR)
+		pOut->CreateColorToolBar();
+	else if (UI.InterfaceMode == RESIZE_TOOLBAR)
+		pOut->CreateResizeToolBar();
+	else if (UI.InterfaceMode == SAVE_BY_TYBE_TOOLBAR)
+		pOut->CreateSaveByTypeToolBar();
+	else if (UI.InterfaceMode == MODE_PLAY)
+		pOut->CreatePlayToolBar();*/
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
