@@ -80,7 +80,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new SaveAction(this, SAVE_TYPE_ALL);
 		break;
 	case SAVE_BY_TYPE:
-		pOut->CreateSaveByTypeToolBar();
+		//pOut->CreateSaveByTypeToolBar();
+		pOut->ClearToolBar();
+		UI.InterfaceMode = SAVE_BY_TYBE_TOOLBAR;
 		break;
 	case SAVE_LINE:
 		pAct = new SaveAction(this, SAVE_TYPE_LINE);
@@ -104,11 +106,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new AddRectAction(this);
 		break;
 	case CHNG_DRAW_CLR:
-		pOut->CreateColorToolBar();
+		//pOut->CreateColorToolBar();
+		pOut->ClearToolBar();
+		UI.InterfaceMode = COLOR_TOOLBAR;
 		UI.ColorInterface = DRAWING_COLOR;
 		break;
 	case CHNG_FILL_CLR:
-		pOut->CreateColorToolBar();
+		//pOut->CreateColorToolBar();
+		UI.InterfaceMode = COLOR_TOOLBAR;
+		pOut->ClearToolBar();
 		UI.ColorInterface = FILL_COLOR;
 		break;
 	case COLOR_BLACK:
@@ -127,12 +133,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new ChangeColorAction(this, UI.ColorInterface,4);
 		break;
 	case BACK_TO_DRAW:
-		pOut->CreateDrawToolBar();
+		//pOut->CreateDrawToolBar();
+		pOut->ClearToolBar();
 		UI.InterfaceMode = MODE_DRAW;
 		UI.ColorInterface =DRAWING_COLOR;
 		break;
 	case RESIZE_SHAPE:
-		pOut->CreateResizeToolBar();
+		//pOut->CreateResizeToolBar();
+		pOut->ClearToolBar();
+		UI.InterfaceMode = RESIZE_TOOLBAR;
 		break;
 	case RESIZE_QUARTER:
 		pAct = new ResizeAction(this, 0.25);
