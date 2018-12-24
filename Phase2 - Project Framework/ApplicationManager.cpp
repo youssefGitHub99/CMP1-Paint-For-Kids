@@ -318,7 +318,7 @@ void ApplicationManager::UpdateInterface() const
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 
-	/*if (UI.InterfaceMode == MODE_DRAW)
+	if (UI.InterfaceMode == MODE_DRAW)
 		pOut->CreateDrawToolBar();
 	else if (UI.InterfaceMode == COLOR_TOOLBAR)
 		pOut->CreateColorToolBar();
@@ -327,7 +327,7 @@ void ApplicationManager::UpdateInterface() const
 	else if (UI.InterfaceMode == SAVE_BY_TYBE_TOOLBAR)
 		pOut->CreateSaveByTypeToolBar();
 	else if (UI.InterfaceMode == MODE_PLAY)
-		pOut->CreatePlayToolBar();*/
+		pOut->CreatePlayToolBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
