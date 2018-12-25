@@ -13,4 +13,6 @@ public :
 	void SetNewLocation(const Point &p1, const Point &p2);
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInside(Point click);
+	virtual bool sametype(CFigure* p);
+	virtual string String();
 };
