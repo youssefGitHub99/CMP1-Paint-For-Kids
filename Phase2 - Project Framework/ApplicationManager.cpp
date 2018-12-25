@@ -129,6 +129,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case COLOR_BLUE:
 		pAct = new ChangeColorAction(this, UI.ColorInterface,4);
 		break;
+	case BACK_TO_DRAW:
+		pOut->CreateDrawToolBar();
+		UI.InterfaceMode = MODE_DRAW;
+		UI.ColorInterface =DRAWING_COLOR;
+		break;
 	case RESIZE_SHAPE:
 		pOut->CreateResizeToolBar();
 		break;
