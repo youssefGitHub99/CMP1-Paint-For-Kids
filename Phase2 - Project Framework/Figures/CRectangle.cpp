@@ -23,10 +23,18 @@ void CRectangle::getOriginalPoints(Point & p1, Point & p2) const
 	p1 = Corner1;
 	p2 = Corner2;
 }
+void CRectangle::SetNewLocation(const Point &p1, const Point &p2) {
+
+	Corner1 = p1;
+	Corner2 = p2;
+
+
+}
+
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected, factor);
+	pOut->DrawRect(Corner1, Corner2, FigGfxInfo,IsCut,Selected,factor);
 	pOut->DrawOrigin(Corner1);
 }
 

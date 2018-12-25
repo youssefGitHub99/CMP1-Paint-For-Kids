@@ -2,6 +2,9 @@
 #include <cmath>
 
 #include "ApplicationManager.h"
+#include "CopyItemAction.h"
+#include "CutItemAction.h"
+#include "PasteItemAction.h"
 #include "Actions\AddRectAction.h"
 #include "Actions\AddLineAction.h"
 #include "Actions\AddCircleAction.h"
@@ -26,11 +29,11 @@ ApplicationManager::ApplicationManager()
 	//Create Input and output
 	pOut = new Output;
 	pIn = pOut->CreateInput();
-
+	Clipboard = NULL;
 	FigCount = 0;
-
+	mode = NonSelect;
 	soundMuted = false;
-
+	Clipboard= NULL;
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
@@ -54,7 +57,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
+	case COPY:
+		pAct = new CopyItemAction(this);
+		break;
+	case PASTE:
+		pAct = new PasteItemAction(this,mode);
+		break;
+	case CUT:
+		pAct = new CutItemAction(this);
+		break;
 	case SELECT_FIGURE:
+		//mode = NotReadyTopaste;
 		pAct = new SelectItemAction(this);
 		break;
 	case DRAW_LINE:
@@ -243,19 +256,115 @@ void ApplicationManager::deleteSelectedFigure() {
 	
 	}
 	else {
-		Output * pOut = GetOutput();
+		
 		int id = c->getId();
-		for (int i = id; i < FigCount-1;i++) {
-			FigList[i] = FigList[i+1];
-		}
-		FigList[FigCount - 1] = NULL;
-		FigCount--;
-		for (int i = 0; i < FigCount; i++) {
-			FigList[i]->setId(i);
-		}
-		pOut->ClearDrawArea();
-		UpdateInterface();
+		deleteFigure(id);
 	}
+}
+void ApplicationManager::setmode(int m) {
+
+	mode = m;
+
+}
+
+void ApplicationManager::deleteFigure(int id){
+	Output * pOut = GetOutput();
+	for (int i = id; i < FigCount - 1; i++) {
+		FigList[i] = FigList[i + 1];
+	}
+	FigList[FigCount - 1] = NULL;
+	FigCount--;
+	for (int i = 0; i < FigCount; i++) {
+		FigList[i]->setId(i);
+	}
+	pOut->ClearDrawArea();
+}
+
+void ApplicationManager::deleteCutFigure() {
+
+	CFigure * c;
+	for (int i = 0; i < FigCount; i++) {
+
+		if (FigList[i]->IsFigureCut()) {
+
+			c = FigList[i];
+		}
+	}
+	int id = c->getId();
+	deleteFigure(id);
+	Clipboard = NULL;
+	
+
+}
+void ApplicationManager::SetClipboardData(CFigure*  pFig, int imode) {
+
+	pOut->ClearDrawArea();
+
+	this->mode = imode;	
+	if (mode == Copy) {
+
+		for (int i = 0; i < FigCount; i++) {
+
+			if (FigList[i]->IsFigureCut()) {
+
+				delete Clipboard;
+				Clipboard = NULL;
+				FigList[i]->SetCut(false);
+
+			}
+		}
+		
+	}
+	else if (mode == Cut) {
+		if (Clipboard != NULL) {
+			delete Clipboard;
+			Clipboard = NULL;
+		}
+		for (int i = 0; i < FigCount; i++) {
+
+			if (FigList[i]->IsFigureCut()) {
+
+				FigList[i]->SetCut(false);
+			
+			}
+		}
+		pFig->SetCut(true);
+	}
+
+		if (dynamic_cast<CCircle*>(pFig) != NULL) {
+
+			Clipboard = new CCircle(*(dynamic_cast<CCircle*>(pFig)));
+		}
+		else if (dynamic_cast<CRectangle*>(pFig) != NULL) {
+
+			Clipboard = new CRectangle(*(dynamic_cast<CRectangle*>(pFig)));
+
+		}
+		else if (dynamic_cast<CTriangle*>(pFig) != NULL) {
+
+			Clipboard = new CTriangle(*(dynamic_cast<CTriangle*>(pFig)));
+		}
+
+		else if (dynamic_cast<CLine*>(pFig) != NULL) {
+
+			Clipboard = new CLine(*(dynamic_cast<CLine*>(pFig)));
+		}
+
+		else if (dynamic_cast<CEllipse*>(pFig) != NULL) {
+
+			Clipboard = new CEllipse(*(dynamic_cast<CEllipse*>(pFig)));
+		}
+
+		else if(dynamic_cast<CRhombus*>(pFig) != NULL){
+			Clipboard = new CRhombus(*(dynamic_cast<CRhombus*>(pFig)));
+		}
+
+	
+}
+CFigure* ApplicationManager::getClipboardData() {
+
+	return Clipboard;
+
 }
 
 void ApplicationManager::playSound(Action* pAct) {
@@ -346,6 +455,11 @@ ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < FigCount; i++)
 		delete FigList[i];
+	if (Clipboard != NULL) {
+
+		delete Clipboard;
+		Clipboard = NULL;
+	}
 	delete pIn;
 	delete pOut;
 

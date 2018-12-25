@@ -4,7 +4,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 {
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
-
+	IsCut = false;
 	factor = 1;
 }
 
@@ -17,6 +17,14 @@ float CFigure::getDistance(Point p1, Point p2) {
 void CFigure::SetSelected(bool s)
 {
 	Selected = s;
+}
+void CFigure::SetCut(bool Cut){
+
+	IsCut = Cut;
+}
+bool CFigure::IsFigureCut(){
+
+	return IsCut;
 }
 
 

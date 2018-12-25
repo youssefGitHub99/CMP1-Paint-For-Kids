@@ -6,12 +6,15 @@ CRhombus::CRhombus(Point center, GfxInfo figGFXInfo) :CFigure(figGFXInfo)
 }
 
 void CRhombus::Draw(Output * pOut)const {
-	pOut->DrawRh(center, FigGfxInfo, Selected, factor);
+	pOut->DrawRh(center, FigGfxInfo,IsCut, Selected, factor);
 	pOut->DrawOrigin(center);
 
 }
 void CRhombus::getCenter(Point & p1)const {
 	p1 = center;
+}
+void CRhombus::SetNewLocation(const Point & p1) {
+	center = p1;
 }
 
 

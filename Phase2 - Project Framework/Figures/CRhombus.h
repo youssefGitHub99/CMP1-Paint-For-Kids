@@ -6,6 +6,7 @@ class CRhombus:public CFigure
 public:
 	CRhombus(Point center,GfxInfo figGFXInfo);
 	void getCenter(Point & p1)const;
+	void SetNewLocation(const Point & p1);
 	virtual void Draw(Output * pOut)const;
 	virtual bool isInside(Point click);
 	~CRhombus();

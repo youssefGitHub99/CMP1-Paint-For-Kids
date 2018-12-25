@@ -175,6 +175,8 @@
     <ClCompile Include="CMUgraphicsLib\keyqueue.cpp" />
     <ClCompile Include="CMUgraphicsLib\mousequeue.cpp" />
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp" />
+    <ClCompile Include="CopyItemAction.cpp" />
+    <ClCompile Include="CutItemAction.cpp" />
     <ClCompile Include="Figures\CCircle.cpp" />
     <ClCompile Include="Figures\CEllipse.cpp" />
     <ClCompile Include="Figures\CFigure.cpp" />
@@ -185,6 +187,7 @@
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PasteItemAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -221,6 +224,8 @@
     <ClInclude Include="CMUgraphicsLib\mousequeue.h" />
     <ClInclude Include="CMUgraphicsLib\version.h" />
     <ClInclude Include="CMUgraphicsLib\windowinput.h" />
+    <ClInclude Include="CopyItemAction.h" />
+    <ClInclude Include="CutItemAction.h" />
     <ClInclude Include="DEFS.h" />
     <ClInclude Include="Figures\CCircle.h" />
     <ClInclude Include="Figures\CEllipse.h" />
@@ -232,6 +237,7 @@
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
+    <ClInclude Include="PasteItemAction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
