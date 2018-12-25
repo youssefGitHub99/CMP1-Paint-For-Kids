@@ -25,7 +25,7 @@ bool CEllipse::isInside(Point click) {
 		return true;
 	}
 	else
-		false;
+		return false;
 
 
 
