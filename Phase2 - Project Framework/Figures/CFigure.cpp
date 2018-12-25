@@ -69,7 +69,7 @@ bool CFigure::hidden(){
 
 bool CFigure::sameFillClr(CFigure* p)
 {
-	return FigGfxInfo.FillClr == p->getGfxInfo().FillClr;
+	return FigGfxInfo.FillClr == p->getGfxInfo().FillClr && FigGfxInfo.isFilled == p->getGfxInfo().isFilled ;
 }
 string CFigure::FillClr()
 {
