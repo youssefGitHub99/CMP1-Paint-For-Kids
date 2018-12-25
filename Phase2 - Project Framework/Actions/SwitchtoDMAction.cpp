@@ -15,6 +15,7 @@ void SwitchtoDMAction::ReadActionParameters() {}
 void SwitchtoDMAction::Execute() {
 	Output* pOut = pManager->GetOutput();
 	pOut->CreateDrawToolBar();
+	pOut->ClearStatusBar();
 }
 
 SwitchtoDMAction::~SwitchtoDMAction() {}

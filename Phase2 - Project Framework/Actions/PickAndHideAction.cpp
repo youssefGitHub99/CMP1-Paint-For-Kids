@@ -12,12 +12,16 @@ using namespace std;
 
 PickAndHideAction::PickAndHideAction(ApplicationManager *pApp, ActionType mode) :Action(pApp)
 {
-	Mode = mode;
-	init();
-	pfig = NULL;
-	act = EMPTY;
 	right = 0;
 	wrong = 0;
+	Mode = mode;
+	preffig = NULL;
+	init();
+	if (preffig != NULL)
+		score();
+	pfig = NULL;
+	act = EMPTY;
+
 }
 
 void PickAndHideAction::ReadActionParameters()
@@ -38,7 +42,7 @@ void PickAndHideAction::Execute()
 	while (act != EXIT && act != TO_DRAW && right != max)
 	{
 		ReadActionParameters();
-		if (act == FIGURE_PICK_BY_TYPE && Mode != act)
+		if (act == FIGURE_PICK_BY_TYPE && Mode == FIGURE_PICK_BY_COLOR)
 		{
 			Mode = act;
 			reset();
@@ -48,7 +52,7 @@ void PickAndHideAction::Execute()
 		{
 			reset();
 		}
-		else if (act == FIGURE_PICK_BY_COLOR && Mode != act)
+		else if (act == FIGURE_PICK_BY_COLOR && Mode == FIGURE_PICK_BY_TYPE)
 		{
 			Mode = act;
 			reset();
@@ -64,6 +68,7 @@ void PickAndHideAction::Execute()
 			{
 				if (preffig->sametype(pfig))
 					right++;
+					
 				else
 					wrong++;
 			}
@@ -75,10 +80,13 @@ void PickAndHideAction::Execute()
 					wrong++;
 			}
 			pfig->hide();
+			pfig = NULL;
 			pManager->UpdateInterface();
+		
 		}
 		else
 			pOut->PrintMessage("");
+		score();
 	}
 	if (right == max)
 		pOut->PrintMessage("YOU WON! right:" + to_string(right) + " wrong:" + to_string(wrong));
@@ -110,11 +118,12 @@ void PickAndHideAction::init()
 void PickAndHideAction::score()
 {
 	Output* pOut = pManager->GetOutput();
-	ostringstream outtype;
-	outtype << "right:" << right << " " << "wrong:" << wrong << " " << "select all " << preffig->String() << "s " << "Click Draw or Exit to stop";
 	ostringstream outclr;
 	outclr << "right:" << right << " " << "wrong:" << wrong << " " << "select all " << preffig->FillClr() << " " << "Click Draw or Exit to stop";
-	string out = (Mode = FIGURE_PICK_BY_TYPE) ? outtype.str() : outclr.str();
+	ostringstream outtype;
+	outtype << "right:" << right << " " << "wrong:" << wrong << " " << "select all " << preffig->String() << "s " << "Click Draw or Exit to stop";
+
+	string out = (Mode == FIGURE_PICK_BY_TYPE) ? outtype.str() : outclr.str();
 	pOut->PrintMessage(out);
 
 
