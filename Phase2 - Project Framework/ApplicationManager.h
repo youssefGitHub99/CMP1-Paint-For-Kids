@@ -56,6 +56,12 @@ public:
 	void deleteSelectedFigure();
 	void playSound(Action* pAct);
 	bool aFigureMustBeSelectedFirst(CFigure *& selectedFigure);
+	void UnhideAll();
+	int numFigSameFillClrAs(CFigure* p);
+	int nmFigSameTypeAs(CFigure* p);
+	void Swap(int indexa, int indexb);
+	void SendToBack(int index);
+	void BringToFront(int index);
 
 
 	// -- Interface Management Functions

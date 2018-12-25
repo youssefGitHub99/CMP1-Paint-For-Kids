@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
 #include "Actions\AddLineAction.h"
@@ -11,6 +10,10 @@
 #include "Actions/SelectItemAction.h"
 #include "Actions/ChangeColorAction.h"
 #include "Actions/ResizeAction.h"
+#include "Actions/SwitchtoDMAction.h"
+#include "Actions/SwitchtoPMAction.h"
+#include "Actions/PickAndHideAction.h"
+#include "Actions/BringFrontSendBackAction.h"
 #include "Figures/CLine.h"
 #include "Figures/CTriangle.h"
 #include "Figures/CEllipse.h"
@@ -126,11 +129,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case COLOR_BLUE:
 		pAct = new ChangeColorAction(this, UI.ColorInterface,4);
 		break;
-	case BACK_TO_DRAW:
-		pOut->CreateDrawToolBar();
-		UI.InterfaceMode = MODE_DRAW;
-		UI.ColorInterface =DRAWING_COLOR;
-		break;
 	case RESIZE_SHAPE:
 		pOut->CreateResizeToolBar();
 		break;
@@ -160,7 +158,24 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		soundMuted = false;
 		pOut->PrintMessage("Sound is now working.");
 		break;
-
+	case BRING_FRONT:
+		pAct = new BringFrontSendBackAction(this, 0);
+		break;
+	case SEND_BACK:
+		pAct = new BringFrontSendBackAction(this, 1);
+		break;
+	case TO_PLAY:
+		pAct = new SwitchtoPMAction(this);
+		break;
+	case TO_DRAW:
+		pAct = new SwitchtoDMAction(this);
+		break;
+	case FIGURE_PICK_BY_TYPE:
+		pAct = new PickAndHideAction(this, FIGURE_PICK_BY_TYPE);
+		break;
+	case FIGURE_PICK_BY_COLOR:
+		pAct = new PickAndHideAction(this, FIGURE_PICK_BY_COLOR);
+		break;
 	case EXIT:
 		///create ExitAction here
 
@@ -266,6 +281,51 @@ bool ApplicationManager::aFigureMustBeSelectedFirst(CFigure *& selectedFigure)
 	selectedFigure = GetSelectedFigure();
 	return true;
 }
+void ApplicationManager::UnhideAll()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		FigList[i]->unhide();
+	}
+}
+int ApplicationManager::nmFigSameTypeAs(CFigure* p)
+{
+	int num = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (p->sametype(FigList[i]))
+			num++;
+	}
+	return num;
+}
+int ApplicationManager::numFigSameFillClrAs(CFigure* p)
+{
+	int num = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (p->sameFillClr(FigList[i]))
+			num++;
+	}
+	return num;
+}
+void ApplicationManager::Swap(int indexa, int indexb)
+{
+	CFigure* temp = FigList[indexa];
+	FigList[indexa] = FigList[indexb];
+	FigList[indexb] = temp;
+	FigList[indexa]->setId(indexa);
+	FigList[indexb]->setId(indexb);
+}
+void ApplicationManager::SendToBack(int index)
+{
+	for (int i = index; i > 0; i--)
+		Swap(i-1, i);
+}
+void ApplicationManager::BringToFront(int index)
+{
+	for (int i = index; i < FigCount - 1; i++)
+		Swap(i, i + 1);
+}
 ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -284,7 +344,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	click.y = y;
 	
 	for (int i = FigCount-1; i >= 0; i--) {
-		bool check = FigList[i]->isInside(click);
+		bool check = (!(FigList[i]->hidden()) && (FigList[i]->isInside(click))) ;
 		if (check)
 			return FigList[i];
 	}
@@ -306,6 +366,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {
+	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 
