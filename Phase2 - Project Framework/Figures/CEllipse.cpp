@@ -37,3 +37,4 @@ string CEllipse::String()
 {
 	return "Ellipse";
 }
+

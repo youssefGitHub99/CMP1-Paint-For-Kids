@@ -3,6 +3,7 @@
 
 #define ORIGINCOLOR CYAN
 #define ORIGINFACTOR 0.05
+#define LINETHICKNESS 2
 
 Output::Output()
 {
@@ -95,19 +96,20 @@ void Output::ClearToolBar() const {
 
 	Point P2;
 	P2.x = pWind->GetWidth();
-	P2.y = UI.ToolBarHeight;
+	P2.y = UI.ToolBarHeight + LINETHICKNESS;
 
 	GfxInfo gfxInfo;
 	gfxInfo.BorderWdth = 1;
-	gfxInfo.DrawClr = WHITE;
-	gfxInfo.FillClr = WHITE;
+	gfxInfo.DrawClr = UI.BkGrndColor;
+	gfxInfo.FillClr = UI.BkGrndColor;
 	gfxInfo.isFilled = true;
 	this->DrawRect(P1, P2, gfxInfo, false, 1);
 }
 
 void Output::CreateDrawToolBar() const
-{
-	ClearToolBar();
+{ 
+	//if (UI.InterfaceMode != MODE_DRAW)
+		//ClearToolBar();
 
 	UI.InterfaceMode = MODE_DRAW;
 
@@ -165,15 +167,16 @@ void Output::CreateDrawToolBar() const
 
 
 	//Draw a line under the toolbar
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->SetPen(DARKRED, LINETHICKNESS);
+	 pWind->DrawLine(0, UI.ToolBarHeight, DRAW_ITM_COUNT*UI.MenuItemWidth, UI.ToolBarHeight);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::CreatePlayToolBar() const
 {
-	ClearToolBar();
+	//if (UI.InterfaceMode != MODE_PLAY)
+		//ClearToolBar();
 
 	UI.InterfaceMode = MODE_PLAY;
 	///TODO: write code to create Play mode menu
@@ -203,14 +206,15 @@ void Output::CreatePlayToolBar() const
 
 
 	//Draw a line under the toolbar
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->SetPen(DARKRED, LINETHICKNESS);
+	 pWind->DrawLine(0, UI.ToolBarHeight, PLAY_ITM_COUNT*UI.MenuItemWidth, UI.ToolBarHeight);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::CreateColorToolBar()const {
-	ClearToolBar();
+	//if (UI.InterfaceMode != COLOR_TOOLBAR)
+		//ClearToolBar();
 	UI.InterfaceMode = COLOR_TOOLBAR;
 	string ColorItemImages[COLOR_ITM_COUNT];
 	ColorItemImages[ITM_COLOR_BLACK] = pathBlack;
@@ -222,12 +226,13 @@ void Output::CreateColorToolBar()const {
 
 	for (int i = 0; i < COLOR_ITM_COUNT; i++)
 		pWind->DrawImage(ColorItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->SetPen(DARKRED, LINETHICKNESS);
+	pWind->DrawLine(0, UI.ToolBarHeight, COLOR_ITM_COUNT*UI.MenuItemWidth, UI.ToolBarHeight);
 }
 
 void Output::CreateResizeToolBar()const {
-	ClearToolBar();
+	//if (UI.InterfaceMode != RESIZE_TOOLBAR)
+		//ClearToolBar();
 	UI.InterfaceMode = RESIZE_TOOLBAR;
 	string ResizeItemImages[RESIZE_ITM_COUNT];
 	ResizeItemImages[ITM_RESIZE_HALF] = "images\\MenuItems\\Menu_x0.5.jpg";
@@ -238,12 +243,14 @@ void Output::CreateResizeToolBar()const {
 	ResizeItemImages[ITM_RESIZE_BACK] = pathBack;
 	for (int i = 0; i < RESIZE_ITM_COUNT; i++)
 		pWind->DrawImage(ResizeItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+	pWind->SetPen(DARKRED, LINETHICKNESS);
+	 pWind->DrawLine(0, UI.ToolBarHeight, RESIZE_ITM_COUNT*UI.MenuItemWidth, UI.ToolBarHeight);
 }
 
 void Output::CreateSaveByTypeToolBar()const {
-	ClearToolBar();
+	//if (UI.InterfaceMode != SAVE_BY_TYBE_TOOLBAR)
+		//ClearToolBar();
 	UI.InterfaceMode = SAVE_BY_TYBE_TOOLBAR;
 	string SaveByTypeItemImages[SAVE_BY_TYPE_ITM_COUNT];
 	SaveByTypeItemImages[ITM_SAVE_CIRCLE] = "images\\MenuItems\\Menu_Save_Circle.jpg";
@@ -255,8 +262,8 @@ void Output::CreateSaveByTypeToolBar()const {
 	SaveByTypeItemImages[ITM_SAVE_BACK] = pathBack;
 	for (int i = 0; i < SAVE_BY_TYPE_ITM_COUNT; i++)
 		pWind->DrawImage(SaveByTypeItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->SetPen(DARKRED, LINETHICKNESS);
+	 pWind->DrawLine(0, UI.ToolBarHeight, SAVE_BY_TYPE_ITM_COUNT*UI.MenuItemWidth, UI.ToolBarHeight);
 
 }
 void Output::ClearDrawArea() const
@@ -274,7 +281,7 @@ void Output::PrintMessage(string msg) const	//Prints a message on status bar
 
 	pWind->SetPen(UI.MsgColor, 50);
 	pWind->SetFont(20, BOLD, BY_NAME, "Arial");
-	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight / 1.5), msg);
+	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight / 1.3), msg);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
