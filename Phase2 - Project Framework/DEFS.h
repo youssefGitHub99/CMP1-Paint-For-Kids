@@ -72,6 +72,15 @@ enum SoundIcons {
 	SOUND_MUTE, 
 	SOUND_UNMUTE
 };
+enum CLipboard {
+
+	NonSelect,
+	//ReadyToPaste,//selected copy or cut
+	Copy,
+	Cut,
+	NotReadyTopaste, //select figure but not selected copy or cut
+
+};
 
 struct Point	//To be used for figures points
 { int x,y; };

@@ -11,7 +11,7 @@ protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
-	
+	bool IsCut;
 	double factor;
 
 	// Add more parameters if needed.
@@ -22,6 +22,8 @@ public:
 	void setId(int id);
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+	void SetCut(bool Cut);
+	bool IsFigureCut();
 	GfxInfo getGfxInfo() const;
 	float getDistance(Point , Point);
 	double getFactor();

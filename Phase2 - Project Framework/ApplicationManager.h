@@ -26,7 +26,7 @@ private:
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Clipboard;   //Pointer to the copied/cut figure
-
+	int mode;
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -52,11 +52,15 @@ public:
 	CFigure* GetFigure(int index) const;
 	CFigure* GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
+	void SetClipboardData(CFigure*  pFig, int imode);
+	CFigure* getClipboardData();
 	void removeSelection();
 	void deleteSelectedFigure();
+	void deleteCutFigure();
+	void setmode(int m);
 	void playSound(Action* pAct);
 	bool aFigureMustBeSelectedFirst(CFigure *& selectedFigure);
-
+	void deleteFigure(int id);
 
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input

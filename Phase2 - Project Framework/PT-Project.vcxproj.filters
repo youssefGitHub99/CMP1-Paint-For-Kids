@@ -196,6 +196,15 @@
     <ClCompile Include="Actions\ResizeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="CopyItemAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="CutItemAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="PasteItemAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -329,6 +338,15 @@
       <Filter>Action Classes\SaveLoad</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ResizeAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyItemAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="CutItemAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PasteItemAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

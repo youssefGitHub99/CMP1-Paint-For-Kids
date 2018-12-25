@@ -18,6 +18,7 @@ Output::Output()
 	UI.ToolBarHeight = /*50*/35;
 	UI.MenuItemWidth = /*80*/70;
 
+	UI.CutColor = GREY;
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
 	UI.MsgColor = RED;		//Messages color
@@ -102,7 +103,7 @@ void Output::ClearToolBar() const {
 	gfxInfo.DrawClr = WHITE;
 	gfxInfo.FillClr = WHITE;
 	gfxInfo.isFilled = true;
-	this->DrawRect(P1, P2, gfxInfo, false, 1);
+	this->DrawRect(P1, P2, gfxInfo, false, false, 1);
 }
 
 void Output::CreateDrawToolBar() const
@@ -299,13 +300,23 @@ int Output::getCrntPenWidth() const		//get current pen width
 //								Figures Drawing Functions								//
 //======================================================================================//
 
-void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected, double factor) const
+void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo,bool IsCut,bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
+
+
+	if (IsCut) {
+
+		
+		RectGfxInfo.isFilled = true;
+		RectGfxInfo.FillClr = UI.CutColor;
+
+	}
+	
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -328,13 +339,22 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected, do
 
 }
 
-void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected, double factor) const
+void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool IsCut, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = LiGfxInfo.DrawClr;
+
+
+	if (IsCut) {
+
+		
+		LiGfxInfo.DrawClr = UI.CutColor;
+
+	}
+	
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -350,13 +370,21 @@ void Output::DrawLi(Point P1, Point P2, GfxInfo LiGfxInfo, bool selected, double
 	);
 }
 
-void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected, double factor) const
+void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool IsCut, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = TriGfxInfo.DrawClr;
+
+
+	if (IsCut) {
+
+		TriGfxInfo.isFilled = true;
+		TriGfxInfo.FillClr = UI.CutColor;
+	}
+	
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -380,13 +408,22 @@ void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool sele
 	);
 }
 
-void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected, double factor) const
+void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool IsCut, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = RhGfxInfo.DrawClr;
+
+	if (IsCut) {
+
+		
+		RhGfxInfo.isFilled = true;
+		RhGfxInfo.FillClr = UI.CutColor;
+
+	}
+	
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -403,13 +440,22 @@ void Output::DrawRh(Point P1, GfxInfo RhGfxInfo, bool selected, double factor) c
 	pWind->DrawPolygon(iX, iY, 4, style);
 }
 
-void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) const
+void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool IsCut, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = ElGfxInfo.DrawClr;
+
+	if (IsCut) {
+
+		
+		ElGfxInfo.isFilled = true;
+		ElGfxInfo.FillClr = UI.CutColor;
+
+	}
+	
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -429,13 +475,21 @@ void Output::DrawEl(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) c
 	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
 }
 
-void Output::DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) const
+void Output::DrawCir(Point P1, GfxInfo ElGfxInfo, bool IsCut, bool selected, double factor) const
 {
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
 		DrawingClr = ElGfxInfo.DrawClr;
+
+	if (IsCut) {
+
+		ElGfxInfo.isFilled = true;
+		ElGfxInfo.FillClr = UI.CutColor;
+		
+	}
+
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
@@ -453,6 +507,8 @@ void Output::DrawCir(Point P1, GfxInfo ElGfxInfo, bool selected, double factor) 
 	iY2 = P1.y + (int)(16 * INITIALFACTOR) * factor;
 
 	pWind->DrawEllipse(iX1, iY1, iX2, iY2, style);
+
+
 }
 void Output::DrawOrigin(Point p)
 {
@@ -461,7 +517,7 @@ void Output::DrawOrigin(Point p)
 	info.FillClr = ORIGINCOLOR;
 	info.isFilled = true;
 
-	DrawCir(p, info, false, ORIGINFACTOR);
+	DrawCir(p, info, false, false, ORIGINFACTOR);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 Output::~Output()

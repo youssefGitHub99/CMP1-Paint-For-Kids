@@ -34,9 +34,16 @@ void CTriangle::getOriginalPoints(Point & p1, Point & p2, Point & p3) const
 	p2 = this->p2;
 	p3 = this->p3;
 }
+void CTriangle::SetNewLocation(const Point & p1, const Point & p2, const Point & p3) {
+	
+	this->p1 = p1;
+	this->p2 = p2;
+	this->p3 = p3;
+}
+
 void CTriangle::Draw(Output * pOut)const {
 	
-	pOut->DrawTri(p1, p2, p3, FigGfxInfo, Selected, factor);
+	pOut->DrawTri(p1, p2, p3, FigGfxInfo,IsCut, Selected, factor);
 	pOut->DrawOrigin(p1);
 }
 
