@@ -6,15 +6,15 @@ CRhombus::CRhombus(Point center, GfxInfo figGFXInfo) :CFigure(figGFXInfo)
 }
 
 void CRhombus::Draw(Output * pOut)const {
-	pOut->DrawRh(center, FigGfxInfo,IsCut, Selected, factor);
-	pOut->DrawOrigin(center);
+	if (!Hidden)
+	{
+		pOut->DrawRh(center, FigGfxInfo, Selected, factor);
+		pOut->DrawOrigin(center);
+	}
 
 }
 void CRhombus::getCenter(Point & p1)const {
 	p1 = center;
-}
-void CRhombus::SetNewLocation(const Point & p1) {
-	center = p1;
 }
 
 
@@ -55,6 +55,14 @@ bool CRhombus::isInside(Point click) {
 
 
 
+}
+bool CRhombus::sametype(CFigure* p)
+{
+	return (dynamic_cast<CRhombus*>(p) != NULL);
+}
+string CRhombus::String()
+{
+	return "Rhombus";
 }
 
 
